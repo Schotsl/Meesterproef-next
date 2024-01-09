@@ -3,9 +3,9 @@
 import styles from "./page.module.scss";
 import choices from "@/choices.json";
 
-import Results from "@/components/Results";
-
 import Input from "@/components/Input";
+import Results from "@/components/Results";
+import Background from "@/components/Background";
 
 import { Choice } from "@/types";
 import { useState } from "react";
@@ -21,9 +21,19 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.main__title}>Guide your own company!</h1>
+      <Background />
 
-      {choice ? <Input choice={choice} onAnswer={handleAnswer} /> : <Results />}
+      <div className={styles.main__content}>
+        <h1 className={styles.main__title}>Guide your own company!</h1>
+
+        {choice ? (
+          <Input choice={choice} onAnswer={handleAnswer} />
+        ) : (
+          <Results />
+        )}
+      </div>
     </main>
   );
 }
+
+// https://alvarotrigo.com/blog/animated-backgrounds-css/
