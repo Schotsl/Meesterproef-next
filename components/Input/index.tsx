@@ -1,3 +1,5 @@
+import styles from "./Input.module.scss";
+
 import InputText from "./Text";
 import InputChoice from "./Choice";
 
@@ -10,14 +12,14 @@ type InputProps = {
 
 export default function Input({ choice, onAnswer }: InputProps) {
   return (
-    <>
+    <div className={styles.input}>
       {choice.type === "input" && (
-        <InputText question={choice.question} onAnswer={onAnswer} />
+        <InputText choice={choice} onAnswer={onAnswer} />
       )}
 
       {choice.type === "choice" && (
         <InputChoice choice={choice} onAnswer={onAnswer} />
       )}
-    </>
+    </div>
   );
 }

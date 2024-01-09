@@ -1,13 +1,17 @@
 import styles from "./InputText.module.scss";
 
+import { Choice } from "../../../types";
 import { useEffect, useState } from "react";
 
 type InputTextProps = {
-  question: string;
+  choice: Choice;
   onAnswer: (answer: string) => void;
 };
 
-export default function InputText({ question, onAnswer }: InputTextProps) {
+export default function InputText({
+  choice: { question, color },
+  onAnswer,
+}: InputTextProps) {
   const [answer, setAnswer] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,16 +32,22 @@ export default function InputText({ question, onAnswer }: InputTextProps) {
     <form className={styles.input_text} onSubmit={handleSubmit}>
       <label className={styles.input_text__label}>{question}</label>
 
-      <input
-        className={styles.input_text__input}
-        type="text"
-        placeholder="Type your answer here"
-        onChange={handleChange}
-      />
+      <div className={styles.input_text__wrapper}>
+        <input
+          type="text"
+          className={styles.input_text__input}
+          placeholder="Type je antwoord hier"
+          onChange={handleChange}
+        />
 
-      <button className={styles.input_text__submit} type="submit">
-        Submit
-      </button>
+        <button
+          type="submit"
+          className={styles.input_text__submit}
+          style={{ backgroundColor: color }}
+        >
+          Volgende vraag
+        </button>
+      </div>
     </form>
   );
 }

@@ -21,11 +21,9 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Background />
+      <Background color={choice.color} />
 
       <div className={styles.main__content}>
-        <h1 className={styles.main__title}>Guide your own company!</h1>
-
         {choice ? (
           <Input choice={choice} onAnswer={handleAnswer} />
         ) : (
