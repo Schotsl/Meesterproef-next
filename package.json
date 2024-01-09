@@ -1,7 +1,7 @@
 {
   "name": "meesterproef",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "lint": "next lint",
@@ -11,27 +11,26 @@
     "format:check": "prettier --check --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.3.1",
-    "autoprefixer": "10.4.16",
+    "@hookform/resolvers": "^3.3.4",
+    "autoprefixer": "^10.4.16",
     "encoding": "^0.1.13",
-    "next": "13.5.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-dropzone": "^14.2.3",
-    "react-hook-form": "^7.46.2",
-    "sass": "^1.68.0",
-    "typescript": "<5.2.0",
-    "zod": "^3.22.2"
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.49.3",
+    "sass": "^1.69.7",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "20.6.3",
-    "@types/react": "18.2.22",
-    "@types/react-dom": "18.2.7",
-    "eslint": "8.49.0",
-    "eslint-config-next": "13.5.2",
-    "eslint-config-prettier": "^9.0.0",
-    "next-plausible": "^3.11.1",
-    "prettier": "^3.0.3",
+    "@types/node": "^20.10.7",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "next-plausible": "^3.12.0",
+    "prettier": "^3.1.1",
     "react-scroll-parallax": "^3.4.5"
   }
 }

@@ -10,11 +10,6 @@ import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
   title: "Meesterproef",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
 };
 
 export default async function RootLayout({
