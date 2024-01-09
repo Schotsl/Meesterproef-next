@@ -30,19 +30,7 @@
     right: 0.25rem;
     width: 11rem;
     position: absolute;
-
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    padding: 0.75rem;
-    background: #3586ff;
-
     transform: translateY(-50%);
-    transition: background 0.5s ease-in-out;
-
-    font-size: 1rem;
-    box-sizing: border-box;
-    border-radius: 25rem;
   }
 
   &__wrapper {

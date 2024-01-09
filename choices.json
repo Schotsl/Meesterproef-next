@@ -20,6 +20,7 @@
   {
     "uuid": "339e20df-1bce-4d6b-8d7b-26d98fc2e1e3",
     "type": "choice",
+    "color": "#3586ff",
     "question": "Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.",
     "options": [
       {
@@ -27,7 +28,7 @@
         "value": "agree"
       },
       {
-        "label": "behoud de huidige werknemers en focus op lokale productie",
+        "label": "Behoud de huidige werknemers en focus op lokale productie",
         "value": "disagree"
       }
     ]
@@ -35,6 +36,7 @@
   {
     "uuid": "caac503c-e24e-4aba-a7b3-1d326e68a63b",
     "type": "choice",
+    "color": "#FFA500",
     "question": "Een grote investeerder biedt aan om in je bedrijf te investeren, maar wil in ruil daarvoor aanzienlijke zeggenschap en aandelen.",
     "options": [
       {
@@ -50,6 +52,7 @@
   {
     "uuid": "255abd88-4b19-42bd-94ae-e8db96c2f5a2",
     "type": "choice",
+    "color": "#FF69B4",
     "question": "Je kunt kiezen tussen goedkopere, niet-duurzame materialen of duurdere, milieuvriendelijke opties voor je producten.",
     "options": [
       {
@@ -65,6 +68,7 @@
   {
     "uuid": "66fe98fd-b444-401f-afc2-2e22932b7be7",
     "type": "choice",
+    "color": "#3586ff",
     "question": "Je bedrijf zit krap en kan kosten besparen door werknemersvoordelen te verminderen, maar dit kan ten koste gaan van werknemerstevredenheid en loyaliteit.",
     "options": [
       {
@@ -77,6 +81,7 @@
   {
     "uuid": "435f36a2-786b-4617-b9f3-49188da9a57b",
     "type": "choice",
+    "color": "#FFA500",
     "question": "Je hebt de kans om je producten aan te passen aan een breder, minder gespecialiseerd publiek, waardoor potentiële inkomsten toenemen, maar dit kan afdoen aan de nichekwaliteit van je product.",
     "options": [
       {

@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Background color={choice.color} />
+      <Background color={choice?.color} />
 
       <div className={styles.main__content}>
         {choice ? (

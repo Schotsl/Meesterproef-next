@@ -8,7 +8,7 @@ type InputChoiceProps = {
 };
 
 export default function InputChoice({
-  choice: { question, options },
+  choice: { question, options, color },
   onAnswer,
 }: InputChoiceProps) {
   return (
@@ -19,10 +19,11 @@ export default function InputChoice({
         {options &&
           options.map((option) => {
             return (
-              <li key={option.value}>
+              <li key={option.value} className={styles.choice__options__option}>
                 <button
+                  style={{ backgroundColor: color }}
                   onClick={() => onAnswer(option.value)}
-                  className={styles.choice__options__option}
+                  className={styles.choice__options__option__button}
                 >
                   {option.label}
                 </button>

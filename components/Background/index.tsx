@@ -1,7 +1,7 @@
 import styles from "./Background.module.scss";
 
 type BackgroundProps = {
-  color: string;
+  color?: string;
 };
 
 export default function Background({ color }: BackgroundProps) {
