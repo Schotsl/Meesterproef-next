@@ -1,6 +1,6 @@
 import styles from "./InputText.module.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type InputTextProps = {
   question: string;
@@ -19,6 +19,10 @@ export default function InputText({ question, onAnswer }: InputTextProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnswer(event.target.value);
   };
+
+  useEffect(() => {
+    setAnswer("");
+  }, [question]);
 
   return (
     <form className={styles.input_text} onSubmit={handleSubmit}>
