@@ -3,10 +3,12 @@
 import styles from "./page.module.scss";
 import choices from "@/choices.json";
 
+import Results from "@/components/Results";
+
 import InputText from "@/components/Input/Text";
 import InputChoice from "@/components/Input/Choice";
 
-import { Choice, Option } from "@/types";
+import { Choice } from "@/types";
 import { useState } from "react";
 
 export default function Home() {
@@ -22,12 +24,18 @@ export default function Home() {
     <main className={styles.main}>
       <h1 className={styles.main__title}>Guide your own company!</h1>
 
-      {choice.type === "input" && (
-        <InputText question={choice.question} onAnswer={handleAnswer} />
-      )}
+      {choice ? (
+        <>
+          {choice.type === "input" && (
+            <InputText question={choice.question} onAnswer={handleAnswer} />
+          )}
 
-      {choice.type === "choice" && (
-        <InputChoice choice={choice} onAnswer={handleAnswer} />
+          {choice.type === "choice" && (
+            <InputChoice choice={choice} onAnswer={handleAnswer} />
+          )}
+        </>
+      ) : (
+        <Results />
       )}
     </main>
   );
