@@ -9,7 +9,7 @@ import EmojiPreloader from "@/components/Emoji/Preloader";
 import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
-  title: "Presently",
+  title: "Meesterproef",
   viewport: {
     width: "device-width",
     initialScale: 1,
@@ -24,13 +24,14 @@ export default async function RootLayout({
 }) {
   return (
     <PlausibleProvider
-      domain="presently.dev"
+      domain="meesterproef.sjorsvanholst.nl"
       enabled={true}
       selfHosted={true}
       customDomain="https://plausible.hedium.nl"
     >
       <html lang="en">
         <head>
+          {/* 
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -55,7 +56,8 @@ export default async function RootLayout({
 
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="msapplication-config" content="/browserconfig.xml" />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#ffffff" /> 
+          */}
         </head>
         <body>
           {children}

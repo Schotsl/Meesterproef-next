@@ -22,9 +22,9 @@ export default function Emoji({ emoji }: EmojiProps) {
     <Image
       src={`/emojis/${value}.png`}
       alt={emoji}
-      className={styles.emoji}
       width={72}
       height={72}
+      className={styles.emoji}
     />
   );
 }
