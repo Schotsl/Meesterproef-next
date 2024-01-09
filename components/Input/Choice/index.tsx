@@ -1,22 +1,22 @@
-import styles from "./Choice.module.scss";
+import styles from "./InputChoice.module.scss";
 
-import { Choice, Option } from "../../types";
+import { Choice, Option } from "../../../types";
 
-type ChoiceProps = {
+type InputChoiceProps = {
   choice: Choice;
   onAnswer: (option: Option) => void;
 };
 
-export default function Choice({
+export default function InputChoice({
   choice: { question, options },
   onAnswer,
-}: ChoiceProps) {
+}: InputChoiceProps) {
   return (
     <section className={styles.choice}>
       <h2 className={styles.choice__question}>{question}</h2>
 
       <menu className={styles.choice__options}>
-        {options.map((option) => {
+        {options && options.map((option) => {
           return (
             <li key={option.value}>
               <button

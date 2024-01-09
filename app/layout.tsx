@@ -9,7 +9,7 @@ import EmojiPreloader from "@/components/Emoji/Preloader";
 import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
-  title: "Meesterproef",
+  title: "Guide your own company!",
 };
 
 export default async function RootLayout({

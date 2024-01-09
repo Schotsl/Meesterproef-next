@@ -1,6 +1,8 @@
 export type Choice = {
+  uuid: string;
+  type: "choice" | "input";
+  options?: Option[];
   question: string;
-  options: Option[];
 };
 
 export type Option = {

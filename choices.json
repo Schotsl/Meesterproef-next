@@ -1,6 +1,22 @@
 [
   {
+    "uuid": "4dfb8b90-a70e-47cc-a9f2-51608f86d04c",
+    "type": "input",
+    "question": "Wat is de naam van je bedrijf?"
+  },
+  {
+    "uuid": "0db64dd3-5440-49a4-9252-c0d8ba49fa62",
+    "type": "input",
+    "question": "Wat doet je bedrijf?"
+  },
+  {
+    "uuid": "76253f31-0daf-4fa5-908e-6538f7da5c16",
+    "type": "input",
+    "question": "Wat is je bedrijfsmissie?"
+  },
+  {
     "uuid": "339e20df-1bce-4d6b-8d7b-26d98fc2e1e3",
+    "type": "choice",
     "question": "Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.",
     "options": [
       {
@@ -15,6 +31,7 @@
   },
   {
     "uuid": "caac503c-e24e-4aba-a7b3-1d326e68a63b",
+    "type": "choice",
     "question": "Een grote investeerder biedt aan om in je bedrijf te investeren, maar wil in ruil daarvoor aanzienlijke zeggenschap en aandelen.",
     "options": [
       {
@@ -29,6 +46,7 @@
   },
   {
     "uuid": "255abd88-4b19-42bd-94ae-e8db96c2f5a2",
+    "type": "choice",
     "question": "Je kunt kiezen tussen goedkopere, niet-duurzame materialen of duurdere, milieuvriendelijke opties voor je producten.",
     "options": [
       {
@@ -43,6 +61,7 @@
   },
   {
     "uuid": "66fe98fd-b444-401f-afc2-2e22932b7be7",
+    "type": "choice",
     "question": "Je bedrijf zit krap en kan kosten besparen door werknemersvoordelen te verminderen, maar dit kan ten koste gaan van werknemerstevredenheid en loyaliteit.",
     "options": [
       {
@@ -54,6 +73,7 @@
   },
   {
     "uuid": "435f36a2-786b-4617-b9f3-49188da9a57b",
+    "type": "choice",
     "question": "Je hebt de kans om je producten aan te passen aan een breder, minder gespecialiseerd publiek, waardoor potentiële inkomsten toenemen, maar dit kan afdoen aan de nichekwaliteit van je product.",
     "options": [
       {
