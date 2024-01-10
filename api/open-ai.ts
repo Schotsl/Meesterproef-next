@@ -4,12 +4,12 @@ import { Company, Question } from "../types";
 import { numberSuffix } from "../helper";
 
 const startPrompt =
-  "We're gonna create questions for a narrative-driven \"choose your own adventure\" game, where the central theme is the player founding and developing their own company. You will be provided with inputs including the company's name, its primary business activities, and its mission statement.\nThe questions should be structured to build a compelling story, beginning from the early stages of the company's formation and leading up to a significant climax or decision point, such as a major acquisition offer. Throughout the game, the storyline should subtly nudge players to contemplate different business models, ranging from traditional profit-centric shareholder models to socially responsible models like worker cooperatives or steward ownership, emphasising positive societal impact and climate change efforts.\nThe narrative should reflect critical moments in a company's life cycle, from opening the first shop to facing major ethical decisions and expansion challenges. The concluding question should be a decisive moment that encapsulates the game's purpose: to determine which business model best aligns with the player's decisions and values, as demonstrated through their journey.\nEach question should offer choices reflecting different business philosophies or strategies, and they should be informed by the initial inputs about the company's name, activities, and mission. The user should only be provided with two options to choose from.\n";
+  "We gaan vragen creëren voor een op verhalen gebaseerd 'kies je eigen avontuur' spel, waarbij het centrale thema het oprichten en ontwikkelen van je eigen bedrijf is. Je krijgt informatie zoals de naam van het bedrijf, de primaire bedrijfsactiviteiten en de missieverklaring.\nDe vragen moeten zo gestructureerd zijn dat ze een meeslepend verhaal opbouwen, beginnend vanaf de vroege stadia van de oprichting van het bedrijf tot aan een belangrijk climax- of beslissingsmoment, zoals een aanbod voor een grote overname. Gedurende het spel moet het verhaal spelers subtiel aanzetten tot nadenken over verschillende bedrijfsmodellen, variërend van traditionele winstgerichte aandeelhoudersmodellen tot maatschappelijk verantwoorde modellen zoals werknemerscoöperaties of steward-eigendom, met de nadruk op positieve maatschappelijke impact en inspanningen voor klimaatverandering.\nHet verhaal moet kritieke momenten in de levenscyclus van een bedrijf weerspiegelen, van het openen van de eerste winkel tot het maken van grote ethische beslissingen en uitbreidingsuitdagingen. De afsluitende vraag moet een beslissend moment zijn dat het doel van het spel samenvat: bepalen welk bedrijfsmodel het beste aansluit bij de beslissingen en waarden van de speler, zoals aangetoond tijdens hun reis.\nElke vraag moet keuzes bieden die verschillende bedrijfsfilosofieën of -strategieën weerspiegelen, en ze moeten worden geïnformeerd door de initiële input over de naam van het bedrijf, de activiteiten en de missie. De gebruiker moet slechts twee opties krijgen om uit te kiezen.";
 
 const questionArray =
-  '{"questions":[{"question":"A factory owner in China has offered to take over your production. This would reduce manufacturing costs, but at the expense of the current employees.","options":[{"label":"Outsource the production for lower costs","value":"agree"},{"label":"Maintain the current employees and focus on local production","value":"disagree"}]},{"question":"A large investor offers to invest in your company, but in return wants significant say and shares.","options":[{"label":"Accept the investment and give up some control","value":"agree"},{"label":"Decline the investment and maintain control","value":"disagree"}]},{"question":"You can choose between cheaper, non-sustainable materials or more expensive, environmentally friendly options for your products.","options":[{"label":"Choose the cheaper options to reduce costs","value":"agree"},{"label":"Choose the more expensive options to save the environment","value":"disagree"}]},{"question":"Your business is tight on funds and can save costs by reducing employee benefits, but this may come at the cost of employee satisfaction and loyalty.","options":[{"label":"Cut employee benefits to save costs","value":"agree"},{"label":"Maintain the current employee benefits","value":"disagree"}]},{"question":"You have the opportunity to adapt your products to a broader, less specialized audience, increasing potential revenue, but this may detract from the niche quality of your product.","options":[{"label":"Adapt your products to appeal to a broader audience","value":"agree"},{"label":"Keep your products specialized and focus on your niche","value":"disagree"}]}]}';
+  '[{"question":"Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.","options":[{"label":"Besteed de productie uit voor lagere kosten","value":"agree"},{"label":"Behoud de huidige werknemers en focus op lokale productie","value":"disagree"}]},{"question":"Een grote investeerder biedt aan om in je bedrijf te investeren, maar wil in ruil daarvoor aanzienlijke zeggenschap en aandelen.","options":[{"label":"Accepteer de investering en geef een deel van de controle weg","value":"agree"},{"label":"Weiger de investering en behoud de controle","value":"disagree"}]},{"question":"Je kunt kiezen tussen goedkopere, niet-duurzame materialen of duurdere, milieuvriendelijke opties voor je producten.","options":[{"label":"Kies voor de goedkopere opties om de kosten te drukken","value":"agree"},{"label":"Kies voor de duurdere opties om het milieu te sparen","value":"disagree"}]},{"question":"Je bedrijf zit krap en kan kosten besparen door werknemersvoordelen te verminderen, maar dit kan ten koste gaan van werknemerstevredenheid en loyaliteit.","options":[{"label":"Snij in werknemersvoordelen om kosten te besparen","value":"agree"},{"label":"Behoud de huidige werknemersvoordelen","value":"disagree"}]},{"question":"Je hebt de kans om je producten aan te passen aan een breder, minder gespecialiseerd publiek, waardoor potentiële inkomsten toenemen, maar dit kan afdoen aan de nichekwaliteit van je product.","options":[{"label":"Pas je producten aan om een breder publiek aan te spreken","value":"agree"},{"label":"Houd je producten gespecialiseerd en richt je op je niche","value":"disagree"}]}]';
 const questionObject =
-  '{"question":"A factory owner in China has offered to take over your production. This would reduce manufacturing costs, but at the expense of the current employees.","options":[{"label":"Outsource the production for lower costs","value":"agree"},{"label":"Maintain the current employees and focus on local production","value":"disagree"}]}';
+  '{"question":"Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.","options":[{"label":"Besteed de productie uit voor lagere kosten","value":"agree"},{"label":"Behoud de huidige werknemers en focus op lokale productie","value":"disagree"}]}';
 
 import OpenAI from "openai";
 
@@ -21,8 +21,8 @@ export async function generateQuestion(company: Company, index: number) {
   console.log("Generating question " + index + "...");
 
   company.name = "Krijn .Inc";
-  company.activity = "Selling tulips";
-  company.mission = "I love selling tulips";
+  company.activity = "Bloemen verkopen";
+  company.mission = "Ik maak graag mensen blij met mijn bloemen";
 
   index += 1;
 
@@ -34,17 +34,17 @@ export async function generateQuestion(company: Company, index: number) {
         role: "system",
         content:
           startPrompt +
-          `You're tasked with generating the ${index}${numberSuffix(
+          `Je hebt de taak om de ${index}${numberSuffix(
             index
-          )} question in the series. An example of the format and style of the questions is provided at the bottom of this prompt.\n` +
+          )} vraag in de serie te genereren. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven.\n` +
           questionObject,
       },
       {
         role: "user",
         content:
-          `Company name: ${company.name}\n` +
-          `Company activities: ${company.activity}\n` +
-          `Company mission: ${company.mission}\n`,
+          `Bedrijf naam: ${company.name}\n` +
+          `Bedrijf activiteiten: ${company.activity}\n` +
+          `Bedrijf missie: ${company.mission}\n`,
       },
     ],
     functions: [
