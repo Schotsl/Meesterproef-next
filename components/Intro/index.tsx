@@ -58,12 +58,17 @@ export default function Intro({
     }
   };
 
-  const handleCompletion = async (company: Company, index: number) => {
-    if (index >= 4) {
+  const handleCompletion = async (
+    company: Company,
+    index: number,
+    asked: string[] = []
+  ) => {
+    if (index >= 6) {
       return;
     }
 
-    const question = await generateQuestion(company, index);
+    const question = await generateQuestion(company, index, 6, asked);
+    const questionValue = question.question;
 
     setQuestions((questions) => {
       const questionsUpdated = [...questions, question];
@@ -74,7 +79,10 @@ export default function Intro({
       return questionsUpdated;
     });
 
-    handleCompletion(company, index + 1);
+    index += 1;
+    asked = [...asked, questionValue];
+
+    handleCompletion(company, index, asked);
   };
 
   return (
