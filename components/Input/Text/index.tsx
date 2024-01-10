@@ -38,6 +38,7 @@ export default function InputText({
           className={styles.input_text__input}
           placeholder="Type je antwoord hier"
           onChange={handleChange}
+          value={answer}
         />
 
         <button

@@ -8,14 +8,47 @@ import Results from "@/components/Results";
 import Background from "@/components/Background";
 
 import { Choice } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type Answer = {
+  uuid: string;
+  value: string;
+};
 
 export default function Home() {
   const [index, setIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
-  const handleAnswer = () => {
+  const handleAnswer = (answer: string, choice: Choice) => {
+    const { uuid } = choice;
+
+    setAnswers([...answers, { uuid, value: answer }]);
     setIndex(index + 1);
   };
+
+  useEffect(() => {
+    const answers = localStorage.getItem("answers");
+
+    if (!answers) {
+      return;
+    }
+
+    // Calculate index based on furthest question that is alreadyd answered
+    const index = JSON.parse(answers).length;
+
+    setIndex(index);
+    setLoaded(true);
+    setAnswers(JSON.parse(answers));
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) {
+      return;
+    }
+
+    localStorage.setItem("answers", JSON.stringify(answers));
+  }, [answers, loaded]);
 
   const choice = choices[index] as Choice;
 
@@ -25,7 +58,10 @@ export default function Home() {
 
       <div className={styles.main__content}>
         {choice ? (
-          <Input choice={choice} onAnswer={handleAnswer} />
+          <Input
+            choice={choice}
+            onAnswer={(answer) => handleAnswer(answer, choice)}
+          />
         ) : (
           <Results />
         )}
