@@ -10,6 +10,7 @@ import Background from "@/components/Background";
 
 import { Answer, Question } from "@/types";
 import { useState } from "react";
+import { generateQuestions } from "../../api/open-ai";
 
 type IntroProps = {
   initial: Answer[];
@@ -29,6 +30,8 @@ export default function Intro({ initial }: IntroProps) {
     setAnswers([...answers, { uuid, value: answer }]);
 
     Cookies.set("answers", answersParsed);
+
+    generateQuestions("", "", "");
   };
 
   const question = questions[index] as Question;
