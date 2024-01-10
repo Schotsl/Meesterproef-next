@@ -7,10 +7,7 @@ type InputChoiceProps = {
   onAnswer: (answer: string) => void;
 };
 
-export default function InputChoice({
-  question: { question, options, color },
-  onAnswer,
-}: InputChoiceProps) {
+export default function InputChoice({ question: { question, options, color }, onAnswer }: InputChoiceProps) {
   return (
     <section className={styles.choice}>
       <h2 className={styles.choice__question}>{question}</h2>

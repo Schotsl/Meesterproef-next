@@ -8,10 +8,7 @@ type InputTextProps = {
   onAnswer: (answer: string) => void;
 };
 
-export default function InputText({
-  question: { question, color },
-  onAnswer,
-}: InputTextProps) {
+export default function InputText({ question: { question, color }, onAnswer }: InputTextProps) {
   const [answer, setAnswer] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,11 +38,7 @@ export default function InputText({
           value={answer}
         />
 
-        <button
-          type="submit"
-          className={styles.input_text__submit}
-          style={{ backgroundColor: color }}
-        >
+        <button type="submit" className={styles.input_text__submit} style={{ backgroundColor: color }}>
           Volgende vraag
         </button>
       </div>

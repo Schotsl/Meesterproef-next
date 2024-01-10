@@ -13,13 +13,9 @@ type InputProps = {
 export default function Input({ question, onAnswer }: InputProps) {
   return (
     <div className={styles.input}>
-      {question.type === "input" && (
-        <InputText question={question} onAnswer={onAnswer} />
-      )}
+      {question.type === "input" && <InputText question={question} onAnswer={onAnswer} />}
 
-      {question.type === "choice" && (
-        <InputChoice question={question} onAnswer={onAnswer} />
-      )}
+      {question.type === "choice" && <InputChoice question={question} onAnswer={onAnswer} />}
     </div>
   );
 }

@@ -9,13 +9,9 @@ export default function Home() {
   const answersParsed = answersCookies ? JSON.parse(answersCookies.value) : [];
 
   const questionsCookies = cookie.get("questions");
-  const questionsParsed = questionsCookies
-    ? JSON.parse(questionsCookies.value)
-    : [];
+  const questionsParsed = questionsCookies ? JSON.parse(questionsCookies.value) : [];
 
-  return (
-    <Intro initialAnswers={answersParsed} initialQuestions={questionsParsed} />
-  );
+  return <Intro initialAnswers={answersParsed} initialQuestions={questionsParsed} />;
 }
 
 // https://alvarotrigo.com/blog/animated-backgrounds-css/

@@ -18,13 +18,5 @@ export default function Emoji({ emoji }: EmojiProps) {
       break;
   }
 
-  return (
-    <Image
-      src={`/emojis/${value}.png`}
-      alt={emoji}
-      width={72}
-      height={72}
-      className={styles.emoji}
-    />
-  );
+  return <Image src={`/emojis/${value}.png`} alt={emoji} width={72} height={72} className={styles.emoji} />;
 }

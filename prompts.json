@@ -66,70 +66,67 @@
 //   }
 // ]
 
-
-
-
 [
-{
-  "question": "Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.",
-  "options": [
-    {
-      "label": "Besteed de productie uit voor lagere kosten",
-      "value": "agree"
-    },
-    {
-      "label": "Behoud de huidige werknemers en focus op lokale productie",
-      "value": "disagree"
-    }
-  ]
-},
-{
-  "question": "Een grote investeerder biedt aan om in je bedrijf te investeren, maar wil in ruil daarvoor aanzienlijke zeggenschap en aandelen.",
-  "options": [
-    {
-      "label": "Accepteer de investering en geef een deel van de controle weg",
-      "value": "agree"
-    },
-    {
-      "label": "Weiger de investering en behoud de controle",
-      "value": "disagree"
-    }
-  ]
-},
-{
-  "question": "Je kunt kiezen tussen goedkopere, niet-duurzame materialen of duurdere, milieuvriendelijke opties voor je producten.",
-  "options": [
-    {
-      "label": "Kies voor de goedkopere opties om de kosten te drukken",
-      "value": "agree"
-    },
-    {
-      "label": "Kies voor de duurdere opties om het milieu te sparen",
-      "value": "disagree"
-    }
-  ]
-},
-{
-  "question": "Je bedrijf zit krap en kan kosten besparen door werknemersvoordelen te verminderen, maar dit kan ten koste gaan van werknemerstevredenheid en loyaliteit.",
-  "options": [
-    {
-      "label": "Snij in werknemersvoordelen om kosten te besparen",
-      "value": "agree"
-    },
-    { "label": "Behoud de huidige werknemersvoordelen", "value": "disagree" }
-  ]
-},
-{
-  "question": "Je hebt de kans om je producten aan te passen aan een breder, minder gespecialiseerd publiek, waardoor potentiële inkomsten toenemen, maar dit kan afdoen aan de nichekwaliteit van je product.",
-  "options": [
-    {
-      "label": "Pas je producten aan om een breder publiek aan te spreken",
-      "value": "agree"
-    },
-    {
-      "label": "Houd je producten gespecialiseerd en richt je op je niche",
-      "value": "disagree"
-    }
-  ]
-}
+  {
+    "question": "Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.",
+    "options": [
+      {
+        "label": "Besteed de productie uit voor lagere kosten",
+        "value": "agree"
+      },
+      {
+        "label": "Behoud de huidige werknemers en focus op lokale productie",
+        "value": "disagree"
+      }
+    ]
+  },
+  {
+    "question": "Een grote investeerder biedt aan om in je bedrijf te investeren, maar wil in ruil daarvoor aanzienlijke zeggenschap en aandelen.",
+    "options": [
+      {
+        "label": "Accepteer de investering en geef een deel van de controle weg",
+        "value": "agree"
+      },
+      {
+        "label": "Weiger de investering en behoud de controle",
+        "value": "disagree"
+      }
+    ]
+  },
+  {
+    "question": "Je kunt kiezen tussen goedkopere, niet-duurzame materialen of duurdere, milieuvriendelijke opties voor je producten.",
+    "options": [
+      {
+        "label": "Kies voor de goedkopere opties om de kosten te drukken",
+        "value": "agree"
+      },
+      {
+        "label": "Kies voor de duurdere opties om het milieu te sparen",
+        "value": "disagree"
+      }
+    ]
+  },
+  {
+    "question": "Je bedrijf zit krap en kan kosten besparen door werknemersvoordelen te verminderen, maar dit kan ten koste gaan van werknemerstevredenheid en loyaliteit.",
+    "options": [
+      {
+        "label": "Snij in werknemersvoordelen om kosten te besparen",
+        "value": "agree"
+      },
+      { "label": "Behoud de huidige werknemersvoordelen", "value": "disagree" }
+    ]
+  },
+  {
+    "question": "Je hebt de kans om je producten aan te passen aan een breder, minder gespecialiseerd publiek, waardoor potentiële inkomsten toenemen, maar dit kan afdoen aan de nichekwaliteit van je product.",
+    "options": [
+      {
+        "label": "Pas je producten aan om een breder publiek aan te spreken",
+        "value": "agree"
+      },
+      {
+        "label": "Houd je producten gespecialiseerd en richt je op je niche",
+        "value": "disagree"
+      }
+    ]
+  }
 ]

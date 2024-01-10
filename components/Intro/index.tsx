@@ -1,12 +1,11 @@
 "use client";
 
 import styles from "./Intro.module.scss";
-
 import defaultQuestions from "../../questions.json";
 
-import Cookies from "js-cookie";
 import Input from "@/components/Input";
 import Reset from "@/components/Reset";
+import Cookies from "js-cookie";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
@@ -86,15 +85,21 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
     handleCompletion(company, index, asked);
   };
 
-  // In case the user closed the tab mid-way through the question generation process we'll resume it
   useEffect(() => {
-    if (questions.length < QUESTION_LIMIT && answers.length >= 3) {
+    // In case the user closed the tab mid-way through the question generation process we'll resume it
+    const resumeGeneration = async () => {
+      if (questions.length >= QUESTION_LIMIT || answers.length < 3) {
+        return;
+      }
+
       const index = questions.length;
       const company = getCompany(answers);
       const asked = questions.map((question) => question.question);
 
       handleCompletion(company, index, asked);
-    }
+    };
+
+    resumeGeneration();
   }, []);
 
   return (

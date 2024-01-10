@@ -19,11 +19,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <PlausibleProvider
       domain="meesterproef.sjorsvanholst.nl"

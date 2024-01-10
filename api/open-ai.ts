@@ -19,7 +19,7 @@ export async function generateQuestion(
   company: Company,
   index: number,
   limit: number,
-  asked: string[] = []
+  asked: string[] = [],
 ): Promise<Question> {
   console.log("Generating question " + index + "...");
 
@@ -50,7 +50,7 @@ export async function generateQuestion(
         content:
           startPrompt +
           `Je hebt de taak om de ${index}${numberSuffix(
-            index
+            index,
           )} vraag in de serie te genereren. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven.\n` +
           questionObject,
       },
