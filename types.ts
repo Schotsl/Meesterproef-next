@@ -15,3 +15,9 @@ export type Answer = {
   uuid: string;
   value: string;
 };
+
+export type Company = {
+  name: string;
+  activity: string;
+  mission: string;
+};

@@ -1,14 +1,14 @@
 "use client";
 
 import styles from "./Intro.module.scss";
-import questions from "@/questions.json";
+import intialQuestions from "@/questions.json";
 
 import Cookies from "js-cookie";
 import Input from "@/components/Input";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
-import { Answer, Question } from "@/types";
+import { Answer, Company, Question } from "@/types";
 import { useState } from "react";
 import { generateQuestion } from "../../api/open-ai";
 
@@ -19,8 +19,11 @@ type IntroProps = {
 export default function Intro({ initial }: IntroProps) {
   const [index, setIndex] = useState(initial.length);
   const [answers, setAnswers] = useState(initial);
+  const [questions, setQuestions] = useState(intialQuestions);
 
-  const handleAnswer = (answer: string, question: Question) => {
+  console.log(index);
+
+  const handleAnswer = async (answer: string, question: Question) => {
     const { uuid } = question;
 
     const answersUpdated = [...answers, { uuid, value: answer }];
@@ -31,14 +34,33 @@ export default function Intro({ initial }: IntroProps) {
 
     Cookies.set("answers", answersParsed);
 
-    generateQuestion(
-      {
-        name: "",
-        activity: "",
-        mission: "",
-      },
-      1
-    );
+    if (answersUpdated.length === 3) {
+      const name = answersUpdated.find(
+        (answer) => answer.uuid === "4dfb8b90-a70e-47cc-a9f2-51608f86d04c"
+      )!.value;
+
+      const activity = answersUpdated.find(
+        (answer) => answer.uuid === "0db64dd3-5440-49a4-9252-c0d8ba49fa62"
+      )!.value;
+
+      const mission = answersUpdated.find(
+        (answer) => answer.uuid === "76253f31-0daf-4fa5-908e-6538f7da5c16"
+      )!.value;
+
+      handleCompletion({ name, activity, mission }, 0);
+    }
+  };
+
+  const handleCompletion = async (company: Company, index: number) => {
+    if (index >= 4) {
+      return;
+    }
+
+    const question = await generateQuestion(company, index);
+
+    setQuestions((questions) => [...questions, question]);
+
+    handleCompletion(company, index + 1);
   };
 
   const question = questions[index] as Question;
