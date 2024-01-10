@@ -5,6 +5,7 @@ import intialQuestions from "@/questions.json";
 
 import Cookies from "js-cookie";
 import Input from "@/components/Input";
+import Reset from "@/components/Reset";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
@@ -20,8 +21,6 @@ export default function Intro({ initial }: IntroProps) {
   const [index, setIndex] = useState(initial.length);
   const [answers, setAnswers] = useState(initial);
   const [questions, setQuestions] = useState(intialQuestions);
-
-  console.log(index);
 
   const handleAnswer = async (answer: string, question: Question) => {
     const { uuid } = question;
@@ -79,6 +78,16 @@ export default function Intro({ initial }: IntroProps) {
           <Results />
         )}
       </div>
+
+      <Reset
+        onReset={() => {
+          Cookies.remove("answers");
+
+          setIndex(0);
+          setAnswers([]);
+          setQuestions(intialQuestions);
+        }}
+      />
     </main>
   );
 }
