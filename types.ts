@@ -10,3 +10,8 @@ export type Option = {
   label: string;
   value: string;
 };
+
+export type Answer = {
+  uuid: string;
+  value: string;
+};
