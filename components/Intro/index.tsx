@@ -1,7 +1,8 @@
 "use client";
 
 import styles from "./Intro.module.scss";
-import intialQuestions from "@/questions.json";
+
+import defaultQuestions from "../../questions.json";
 
 import Cookies from "js-cookie";
 import Input from "@/components/Input";
@@ -14,13 +15,20 @@ import { useState } from "react";
 import { generateQuestion } from "../../api/open-ai";
 
 type IntroProps = {
-  initial: Answer[];
+  initialAnswers: Answer[];
+  initialQuestions: Question[];
 };
 
-export default function Intro({ initial }: IntroProps) {
-  const [index, setIndex] = useState(initial.length);
-  const [answers, setAnswers] = useState(initial);
-  const [questions, setQuestions] = useState(intialQuestions);
+export default function Intro({
+  initialAnswers,
+  initialQuestions,
+}: IntroProps) {
+  const [index, setIndex] = useState(initialAnswers.length);
+  const [answers, setAnswers] = useState(initialAnswers);
+  const [questions, setQuestions] = useState(initialQuestions);
+
+  const questionsCombined = [...defaultQuestions, ...questions] as Question[];
+  const questionCurrent = questionsCombined[index];
 
   const handleAnswer = async (answer: string, question: Question) => {
     const { uuid } = question;
@@ -57,22 +65,27 @@ export default function Intro({ initial }: IntroProps) {
 
     const question = await generateQuestion(company, index);
 
-    setQuestions((questions) => [...questions, question]);
+    setQuestions((questions) => {
+      const questionsUpdated = [...questions, question];
+      const questionsParsed = JSON.stringify(questionsUpdated);
+
+      Cookies.set("questions", questionsParsed);
+
+      return questionsUpdated;
+    });
 
     handleCompletion(company, index + 1);
   };
 
-  const question = questions[index] as Question;
-
   return (
     <main className={styles.main}>
-      <Background color={question?.color} />
+      <Background color={questionCurrent?.color} />
 
       <div className={styles.main__content}>
-        {question ? (
+        {questionCurrent ? (
           <Input
-            question={question}
-            onAnswer={(answer) => handleAnswer(answer, question)}
+            question={questionCurrent}
+            onAnswer={(answer) => handleAnswer(answer, questionCurrent)}
           />
         ) : (
           <Results />
@@ -82,10 +95,11 @@ export default function Intro({ initial }: IntroProps) {
       <Reset
         onReset={() => {
           Cookies.remove("answers");
+          Cookies.remove("questions");
 
           setIndex(0);
           setAnswers([]);
-          setQuestions(intialQuestions);
+          setQuestions([]);
         }}
       />
     </main>

@@ -17,7 +17,10 @@ const openai = new OpenAI({
   apiKey: process.env["OPEN_AI_KEY"],
 });
 
-export async function generateQuestion(company: Company, index: number) {
+export async function generateQuestion(
+  company: Company,
+  index: number
+): Promise<Question> {
   console.log("Generating question " + index + "...");
 
   company.name = "Krijn .Inc";

@@ -8,7 +8,14 @@ export default function Home() {
   const answersCookies = cookie.get("answers");
   const answersParsed = answersCookies ? JSON.parse(answersCookies.value) : [];
 
-  return <Intro initial={answersParsed} />;
+  const questionsCookies = cookie.get("questions");
+  const questionsParsed = questionsCookies
+    ? JSON.parse(questionsCookies.value)
+    : [];
+
+  return (
+    <Intro initialAnswers={answersParsed} initialQuestions={questionsParsed} />
+  );
 }
 
 // https://alvarotrigo.com/blog/animated-backgrounds-css/
