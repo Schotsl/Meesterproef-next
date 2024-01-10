@@ -4,10 +4,11 @@ import { cookies } from "next/headers";
 
 export default function Home() {
   const cookie = cookies();
-  const request = cookie.get("answers");
-  const initial = request ? JSON.parse(request.value) : [];
 
-  return <Intro initial={initial} />;
+  const answersCookies = cookie.get("answers");
+  const answersParsed = answersCookies ? JSON.parse(answersCookies.value) : [];
+
+  return <Intro initial={answersParsed} />;
 }
 
 // https://alvarotrigo.com/blog/animated-backgrounds-css/

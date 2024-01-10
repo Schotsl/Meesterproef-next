@@ -1,15 +1,15 @@
 import styles from "./InputText.module.scss";
 
-import { Choice } from "../../../types";
+import { Question } from "../../../types";
 import { useEffect, useState } from "react";
 
 type InputTextProps = {
-  choice: Choice;
+  question: Question;
   onAnswer: (answer: string) => void;
 };
 
 export default function InputText({
-  choice: { question, color },
+  question: { question, color },
   onAnswer,
 }: InputTextProps) {
   const [answer, setAnswer] = useState("");

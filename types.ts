@@ -1,4 +1,4 @@
-export type Choice = {
+export type Question = {
   uuid: string;
   type: "choice" | "input";
   color: string;

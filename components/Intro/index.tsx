@@ -1,14 +1,14 @@
 "use client";
 
 import styles from "./Intro.module.scss";
-import choices from "@/choices.json";
+import questions from "@/questions.json";
 
 import Cookies from "js-cookie";
 import Input from "@/components/Input";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
-import { Answer, Choice } from "@/types";
+import { Answer, Question } from "@/types";
 import { useState } from "react";
 
 type IntroProps = {
@@ -19,8 +19,8 @@ export default function Intro({ initial }: IntroProps) {
   const [index, setIndex] = useState(initial.length);
   const [answers, setAnswers] = useState(initial);
 
-  const handleAnswer = (answer: string, choice: Choice) => {
-    const { uuid } = choice;
+  const handleAnswer = (answer: string, question: Question) => {
+    const { uuid } = question;
 
     const answersUpdated = [...answers, { uuid, value: answer }];
     const answersParsed = JSON.stringify(answersUpdated);
@@ -31,17 +31,17 @@ export default function Intro({ initial }: IntroProps) {
     Cookies.set("answers", answersParsed);
   };
 
-  const choice = choices[index] as Choice;
+  const question = questions[index] as Question;
 
   return (
     <main className={styles.main}>
-      <Background color={choice?.color} />
+      <Background color={question?.color} />
 
       <div className={styles.main__content}>
-        {choice ? (
+        {question ? (
           <Input
-            choice={choice}
-            onAnswer={(answer) => handleAnswer(answer, choice)}
+            question={question}
+            onAnswer={(answer) => handleAnswer(answer, question)}
           />
         ) : (
           <Results />

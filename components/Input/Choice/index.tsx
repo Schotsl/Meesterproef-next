@@ -1,14 +1,14 @@
 import styles from "./InputChoice.module.scss";
 
-import { Choice, Option } from "../../../types";
+import { Question } from "../../../types";
 
 type InputChoiceProps = {
-  choice: Choice;
+  question: Question;
   onAnswer: (answer: string) => void;
 };
 
 export default function InputChoice({
-  choice: { question, options, color },
+  question: { question, options, color },
   onAnswer,
 }: InputChoiceProps) {
   return (

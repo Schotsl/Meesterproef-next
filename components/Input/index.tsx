@@ -3,22 +3,22 @@ import styles from "./Input.module.scss";
 import InputText from "./Text";
 import InputChoice from "./Choice";
 
-import { Choice } from "../../types";
+import { Question } from "../../types";
 
 type InputProps = {
-  choice: Choice;
+  question: Question;
   onAnswer: (answer: string) => void;
 };
 
-export default function Input({ choice, onAnswer }: InputProps) {
+export default function Input({ question, onAnswer }: InputProps) {
   return (
     <div className={styles.input}>
-      {choice.type === "input" && (
-        <InputText choice={choice} onAnswer={onAnswer} />
+      {question.type === "input" && (
+        <InputText question={question} onAnswer={onAnswer} />
       )}
 
-      {choice.type === "choice" && (
-        <InputChoice choice={choice} onAnswer={onAnswer} />
+      {question.type === "choice" && (
+        <InputChoice question={question} onAnswer={onAnswer} />
       )}
     </div>
   );
