@@ -1,13 +1,13 @@
 "use server";
 
 import { Company, Question } from "../types";
-import { numberSuffix } from "../helper";
+
+import questionArray from "../examples.json";
+
+const questionObject = JSON.stringify(questionArray[0]);
 
 // prettier-ignore
-const startPrompt = "We gaan vragen creëren voor een op verhalen gebaseerd 'kies je eigen avontuur' spel, waarbij het centrale thema het oprichten en ontwikkelen van je eigen bedrijf is. Je krijgt informatie zoals de naam van het bedrijf, de primaire bedrijfsactiviteiten en de missieverklaring.\nDe vragen moeten zo gestructureerd zijn dat ze een meeslepend verhaal opbouwen, beginnend vanaf de vroege stadia van de oprichting van het bedrijf tot aan een belangrijk climax- of beslissingsmoment, zoals een aanbod voor een grote overname. Gedurende het spel moet het verhaal spelers subtiel aanzetten tot nadenken over verschillende bedrijfsmodellen, variërend van traditionele winstgerichte aandeelhoudersmodellen tot maatschappelijk verantwoorde modellen zoals werknemerscoöperaties of steward-eigendom, met de nadruk op positieve maatschappelijke impact en inspanningen voor klimaatverandering.\nHet verhaal moet kritieke momenten in de levenscyclus van een bedrijf weerspiegelen, van het openen van de eerste winkel tot het maken van grote ethische beslissingen en uitbreidingsuitdagingen. De afsluitende vraag moet een beslissend moment zijn dat het doel van het spel samenvat: bepalen welk bedrijfsmodel het beste aansluit bij de beslissingen en waarden van de speler, zoals aangetoond tijdens hun reis.\nElke vraag moet keuzes bieden die verschillende bedrijfsfilosofieën of -strategieën weerspiegelen, en ze moeten worden geïnformeerd door de initiële input over de naam van het bedrijf, de activiteiten en de missie. De gebruiker moet slechts twee opties krijgen om uit te kiezen.";
-
-// prettier-ignore
-const questionObject = '{"question":"Een fabriekseigenaar in China heeft aangeboden om je productie over te nemen. Dit zou fabricatiekosten verlagen, maar ten koste gaan van de huidige werknemers.","options":[{"label":"Besteed de productie uit voor lagere kosten","value":"agree"},{"label":"Behoud de huidige werknemers en focus op lokale productie","value":"disagree"}]}';
+const startPrompt = "We gaan meeslepende vragen ontwerpen voor een 'kies je eigen avontuur'-spel, gefocust op het opzetten en uitbouwen van je eigen onderneming. Je ontvangt basisinformatie zoals de bedrijfsnaam, bedrijfsactiviteiten en de missie. Daarnaast moet je voor elke vraag een korte titel bedenken die de vraag samenvat.\nDe vragen zullen een verhaal ontwikkelen, beginnend bij de oprichting van het bedrijf en evolueren naar een climax, zoals een overnamebod. Het spel stimuleert spelers om na te denken over verschillende bedrijfsmodellen - van traditionele winstgerichte modellen tot maatschappelijk verantwoorde alternatieven zoals Worker Cooperatives of Steward Ownership met aandacht voor sociale impact en klimaatactie.\nBelangrijke bedrijfsmomenten worden belicht, zoals bijvoorbeeld het openen van de eerste winkel, ethische besluitvorming en groeistrategieën. Het slot vraagstuk bepaalt welk bedrijfsmodel het best aansluit bij de keuzes en waarden van de speler, zoals ervaren tijdens hun reis.\nElke vraag biedt twee keuzes, weerspiegelend diverse bedrijfsfilosofieën en -strategieën, geïnformeerd door de begininformatie over het bedrijf.\nLater worden de antwoorden op deze vragen gemeten in de metrics financiële prestatie, duurzaamheid en maatschappelijke verantwoordelijkheid en werknemerstevredenheid en -betrokkenheid. Zorg ervoor dat de impact van de verschillende vragen en keuzes duidelijk is voor de gebruiker. De vragen mogen onrealistisch of fictief zijn.\n";
 
 import OpenAI from "openai";
 
@@ -31,25 +31,20 @@ export async function generateQuestion(
   let chatContent = startPrompt;
 
   // prettier-ignore
-  chatContent += `Je hebt de taak om de ${index}${numberSuffix(index)} vraag in de serie te genereren. In totaal worden er ${limit} vragen gegenereerd, houd hier rekening mee ivm de opbouw van het verhaal. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven.\n`;
-  chatContent += questionObject;
+  chatContent += `Je hebt de taak om de ${index}e vraag in de serie te genereren. In totaal worden er ${limit} vragen gegenereerd, houd hier rekening mee ivm de opbouw van het verhaal. Een voorbeeld van het formaat en de stijl van de vragen wordt hieronder gegeven:\n`;
+  chatContent += `${questionObject}\n`;
 
   if (asked.length > 0) {
     const chatAsked = asked.join(", ");
 
     chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: ${chatAsked}\n`;
   }
-
+  console.log(chatContent);
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
-        content:
-          startPrompt +
-          `Je hebt de taak om de ${index}${numberSuffix(
-            index,
-          )} vraag in de serie te genereren. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven. Probeer de vragen iets wat kort te houden\n` +
-          questionObject,
+        content: chatContent,
       },
       {
         role: "user",
@@ -65,6 +60,9 @@ export async function generateQuestion(
         parameters: {
           type: "object",
           properties: {
+            title: {
+              type: "string",
+            },
             question: {
               type: "string",
             },
@@ -100,7 +98,7 @@ export async function generateQuestion(
   const responseMessage = chatCompletion.choices[0].message;
   const responseArguments = responseMessage.function_call?.arguments;
   const responseParsed = JSON.parse(responseArguments!);
-
+  // console.log(responseParsed);
   return {
     uuid: crypto.randomUUID(),
     type: "choice",
