@@ -10,16 +10,24 @@ type InputChoiceProps = {
   onAnswer?: (answer: string) => void;
 };
 
-export default function InputChoice({ loading, question: { question, options, color }, onAnswer }: InputChoiceProps) {
+export default function InputChoice({
+  loading,
+  question: { question, options, title, color },
+  onAnswer,
+}: InputChoiceProps) {
   const handleClick = (value: string) => {
     onAnswer && onAnswer(value);
   };
 
   return (
     <section className={styles.choice}>
-      <h2 className={styles.choice__question} style={{ opacity: loading ? 0.25 : 1 }}>
-        {question}
+      <h2 className={styles.choice__title} style={{ opacity: loading ? 0.25 : 1 }}>
+        {title}
       </h2>
+
+      <p className={styles.choice__question} style={{ opacity: loading ? 0.25 : 1 }}>
+        {question}
+      </p>
 
       <menu className={styles.choice__options} style={{ opacity: loading ? 0.25 : 1 }}>
         {options &&

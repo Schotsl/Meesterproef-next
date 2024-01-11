@@ -98,7 +98,7 @@ export async function generateQuestion(
   const responseMessage = chatCompletion.choices[0].message;
   const responseArguments = responseMessage.function_call?.arguments;
   const responseParsed = JSON.parse(responseArguments!);
-  // console.log(responseParsed);
+
   return {
     uuid: crypto.randomUUID(),
     type: "choice",
