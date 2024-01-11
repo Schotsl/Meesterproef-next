@@ -13,7 +13,7 @@ import { Answer, Company, Question } from "@/types";
 import { useEffect, useState } from "react";
 import { generateQuestion } from "../../api/open-ai";
 
-const QUESTION_LIMIT = 6;
+const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
 type IntroProps = {
   initialAnswers: Answer[];
@@ -63,11 +63,13 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
 
   // This recursive function will generate questions until the limit is reached
   const handleCompletion = async (company: Company, index: number, asked: string[] = []) => {
-    if (index >= QUESTION_LIMIT) {
+    console.log(QUESTION_COUNT);
+    console.log("ASDF");
+    if (index >= QUESTION_COUNT) {
       return;
     }
 
-    const question = await generateQuestion(company, index, QUESTION_LIMIT, asked);
+    const question = await generateQuestion(company, index, QUESTION_COUNT, asked);
     const questionValue = question.question;
 
     setQuestions((questions) => {
@@ -88,7 +90,7 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
   useEffect(() => {
     // In case the user closed the tab mid-way through the question generation process we'll resume it
     const resumeGeneration = async () => {
-      if (questions.length >= QUESTION_LIMIT || answers.length < 3) {
+      if (questions.length >= QUESTION_COUNT || answers.length < 3) {
         return;
       }
 

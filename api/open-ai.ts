@@ -11,9 +11,10 @@ const questionObject = '{"question":"Een fabriekseigenaar in China heeft aangebo
 
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env["OPEN_AI_KEY"],
-});
+const OPENAI_KEY = process.env["OPENAI_KEY"]!;
+const OPENAI_MODEL = process.env["OPENAI_MODEL"]!;
+
+const openai = new OpenAI({ apiKey: OPENAI_KEY });
 
 export async function generateQuestion(
   company: Company,
@@ -92,7 +93,7 @@ export async function generateQuestion(
     function_call: {
       name: "createQuestion",
     },
-    model: "gpt-3.5-turbo",
+    model: OPENAI_MODEL,
   });
 
   const timeEnd = performance.now();
