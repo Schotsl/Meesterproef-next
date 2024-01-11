@@ -103,10 +103,12 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
       }
 
       const index = questions.length;
+      const todo = QUESTION_COUNT - index;
+
       const company = getCompany(answers);
       const asked = questions.map((question) => question.question);
 
-      handleCompletion(company, index, asked);
+      handleCompletion(company, index, todo, asked);
     };
 
     resumeGeneration();
@@ -123,7 +125,7 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
 
         {!questionCurrent && !questionsAnswered && <Input loading={true} question={questionPrevious} />}
 
-        {questionsAnswered && <h2>Bruh</h2>}
+        {questionsAnswered && <Results questions={questions} answers={answers} />}
       </div>
 
       <Reset

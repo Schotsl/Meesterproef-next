@@ -1,5 +1,29 @@
 .results {
   &__title {
-    color: blue;
+    // color: blue;
+  }
+
+  &__list {
+    width: 80vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    gap: 1rem;
+    margin: 0;
+    display: grid;
+    padding: 0;
+
+    list-style: none;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    &__item {
+      border: 2px solid #000;
+      height: 16rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 1rem;
+    }
   }
 }
