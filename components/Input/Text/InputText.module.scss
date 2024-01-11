@@ -11,6 +11,8 @@
 
     line-height: 1.2;
     margin-bottom: 2.5rem;
+
+    transition: opacity 0.2s ease-in-out;
   }
 
   &__input {
@@ -23,6 +25,8 @@
 
     font-size: 1rem;
     border-radius: 25rem;
+
+    transition: opacity 0.2s ease-in-out;
   }
 
   &__submit {

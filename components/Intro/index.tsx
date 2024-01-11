@@ -26,7 +26,10 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
   const [questions, setQuestions] = useState(initialQuestions);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];
+  const questionsAnswered = index - 3 >= QUESTION_COUNT;
+
   const questionCurrent = questionsCombined[index];
+  const questionPrevious = questionsCombined[index - 1];
 
   const getCompany = (answers: Answer[]) => {
     if (answers.length < 3) {
@@ -63,8 +66,6 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
 
   // This recursive function will generate questions until the limit is reached
   const handleCompletion = async (company: Company, index: number, asked: string[] = []) => {
-    console.log(QUESTION_COUNT);
-    console.log("ASDF");
     if (index >= QUESTION_COUNT) {
       return;
     }
@@ -106,14 +107,16 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
 
   return (
     <main className={styles.main}>
-      <Background color={questionCurrent?.color} />
+      <Background color={questionCurrent ? questionCurrent.color : questionPrevious?.color} />
 
       <div className={styles.main__content}>
-        {questionCurrent ? (
+        {questionCurrent && (
           <Input question={questionCurrent} onAnswer={(answer) => handleAnswer(answer, questionCurrent)} />
-        ) : (
-          <Results />
         )}
+
+        {!questionCurrent && !questionsAnswered && <Input loading={true} question={questionPrevious} />}
+
+        {questionsAnswered && <h2>Bruh</h2>}
       </div>
 
       <Reset
@@ -124,6 +127,8 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
           setIndex(0);
           setAnswers([]);
           setQuestions([]);
+
+          window.location.reload();
         }}
       />
     </main>

@@ -24,10 +24,6 @@ export async function generateQuestion(
 ): Promise<Question> {
   console.log("Generating question " + index + "...");
 
-  company.name = "Krijn .Inc";
-  company.activity = "Bloemen verkopen";
-  company.mission = "Ik maak graag mensen blij met mijn bloemen";
-
   index += 1;
 
   const timeStart = performance.now();
@@ -52,7 +48,7 @@ export async function generateQuestion(
           startPrompt +
           `Je hebt de taak om de ${index}${numberSuffix(
             index,
-          )} vraag in de serie te genereren. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven.\n` +
+          )} vraag in de serie te genereren. Een voorbeeld van het formaat en de stijl van de vragen wordt onderaan deze opdracht gegeven. Probeer de vragen iets wat kort te houden\n` +
           questionObject,
       },
       {
