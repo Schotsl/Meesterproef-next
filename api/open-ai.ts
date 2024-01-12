@@ -34,6 +34,7 @@ export async function generateQuestion(
   chatContent += `${questionObject}\n`;
 
   if (asked.length > 0) {
+    console.log("THING");
     const chatAsked = asked.join(", ");
 
     chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: ${chatAsked}\n`;
@@ -76,6 +77,9 @@ export async function generateQuestion(
                   value: {
                     type: "string",
                   },
+                  explain: {
+                    type: "string",
+                  },
                   impact: {
                     type: "object",
                     properties: {
@@ -111,8 +115,6 @@ export async function generateQuestion(
   const responseMessage = chatCompletion.choices[0].message;
   const responseArguments = responseMessage.function_call?.arguments;
   const responseParsed = JSON.parse(responseArguments!);
-
-  console.log(responseParsed.options);
 
   return {
     uuid: crypto.randomUUID(),

@@ -5,6 +5,7 @@
     {
       "label": "Besteed de productie uit voor lagere kosten",
       "value": "agree",
+      "explain": "Je kiest voor uitbesteding om kosten te besparen, wat financieel voordelig is maar negatief uitpakt voor werknemerswelzijn en maatschappelijke impact.",
       "impact": {
         "financial_presentation": 0.89,
         "employee_wellbeing": -0.92,
@@ -14,6 +15,7 @@
     {
       "label": "Behoud de huidige werknemers en focus op lokale productie",
       "value": "disagree",
+      "explain": "Je kiest voor het behoud van werknemers en lokale productie, wat goed is voor hun welzijn en de maatschappij, maar minder voordelig voor de financiën.",
       "impact": {
         "financial_presentation": -0.53,
         "employee_wellbeing": 0.94,

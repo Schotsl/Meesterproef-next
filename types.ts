@@ -10,6 +10,7 @@ export type Question = {
 export type Option = {
   label: string;
   value: string;
+  explain: string;
   impact: {
     financial_presentation: number;
     employee_wellbeing: number;

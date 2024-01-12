@@ -39,33 +39,33 @@ function ResultsItem({ answer, question }: ResultsItemProps) {
     <li className={styles.results__list__item}>
       <h3 className={styles.results__list__item__title}>{question.title}</h3>
 
-      {/* <p className={styles.results__list__item__question}>{question.question}</p> */}
-
-      {/* <b className={styles.results__list__item__answer}>{choice?.label}</b> */}
-
       {choice && (
-        <ul className={styles.results__list__item__impact}>
-          <li className={styles.results__list__item__impact__item}>
-            <span
-              className={styles.results__list__item__impact__item__slider}
-              style={{ width: `${(choice!.impact.employee_wellbeing + 1) * 50}%` }}
-            ></span>
-          </li>
+        <>
+          <p className={styles.results__list__item__description}>{choice.explain}</p>
 
-          <li className={styles.results__list__item__impact__item}>
-            <span
-              className={styles.results__list__item__impact__item__slider}
-              style={{ width: `${(choice!.impact.financial_presentation + 1) * 50}%` }}
-            ></span>
-          </li>
+          <ul className={styles.results__list__item__impact}>
+            <li className={styles.results__list__item__impact__item}>
+              <span
+                className={styles.results__list__item__impact__item__slider}
+                style={{ width: `${(choice!.impact.employee_wellbeing + 1) * 50}%` }}
+              ></span>
+            </li>
 
-          <li className={styles.results__list__item__impact__item}>
-            <span
-              className={styles.results__list__item__impact__item__slider}
-              style={{ width: `${(choice!.impact.societal_impact + 1) * 50}%` }}
-            ></span>
-          </li>
-        </ul>
+            <li className={styles.results__list__item__impact__item}>
+              <span
+                className={styles.results__list__item__impact__item__slider}
+                style={{ width: `${(choice!.impact.financial_presentation + 1) * 50}%` }}
+              ></span>
+            </li>
+
+            <li className={styles.results__list__item__impact__item}>
+              <span
+                className={styles.results__list__item__impact__item__slider}
+                style={{ width: `${(choice!.impact.societal_impact + 1) * 50}%` }}
+              ></span>
+            </li>
+          </ul>
+        </>
       )}
     </li>
   );
