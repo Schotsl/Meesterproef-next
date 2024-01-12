@@ -3,7 +3,7 @@
 import { readFileSync } from "fs";
 import { Company, Question } from "../types";
 
-import questionArray from "../examples.json";
+import questionJSON from "../examples.json";
 
 import OpenAI from "openai";
 
@@ -12,7 +12,7 @@ const OPENAI_MODEL = process.env["OPENAI_MODEL"]!;
 
 const openai = new OpenAI({ apiKey: OPENAI_KEY });
 
-const questionObject = JSON.stringify(questionArray[0]);
+const questionObject = JSON.stringify(questionJSON);
 const questionPrompt = readFileSync("prompt.txt", "utf8");
 
 export async function generateQuestion(
@@ -76,6 +76,20 @@ export async function generateQuestion(
                   value: {
                     type: "string",
                   },
+                  impact: {
+                    type: "object",
+                    properties: {
+                      financial_presentation: {
+                        type: "number",
+                      },
+                      employee_wellbeing: {
+                        type: "number",
+                      },
+                      societal_impact: {
+                        type: "number",
+                      },
+                    },
+                  },
                 },
               },
             },
@@ -97,6 +111,8 @@ export async function generateQuestion(
   const responseMessage = chatCompletion.choices[0].message;
   const responseArguments = responseMessage.function_call?.arguments;
   const responseParsed = JSON.parse(responseArguments!);
+
+  console.log(responseParsed.options);
 
   return {
     uuid: crypto.randomUUID(),
