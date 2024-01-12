@@ -95,24 +95,24 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
     handleCompletion(company, index, todo, asked);
   };
 
-  useEffect(() => {
-    // In case the user closed the tab mid-way through the question generation process we'll resume it
-    const resumeGeneration = async () => {
-      if (questions.length >= QUESTION_COUNT || answers.length < 3) {
-        return;
-      }
+  // useEffect(() => {
+  //   // In case the user closed the tab mid-way through the question generation process we'll resume it
+  //   const resumeGeneration = async () => {
+  //     if (questions.length >= QUESTION_COUNT || answers.length < 3) {
+  //       return;
+  //     }
 
-      const index = questions.length;
-      const todo = QUESTION_COUNT - index;
+  //     const index = questions.length;
+  //     const todo = QUESTION_COUNT - index;
 
-      const company = getCompany(answers);
-      const asked = questions.map((question) => question.question);
+  //     const company = getCompany(answers);
+  //     const asked = questions.map((question) => question.question);
 
-      handleCompletion(company, index, todo, asked);
-    };
+  //     handleCompletion(company, index, todo, asked);
+  //   };
 
-    resumeGeneration();
-  }, []);
+  //   resumeGeneration();
+  // }, []);
 
   return (
     <main className={styles.main}>
