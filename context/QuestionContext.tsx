@@ -49,6 +49,7 @@ export const QuestionProvider = ({
   initialAnswers,
   initialQuestions,
 }: QuestionProviderProps) => {
+  const [busy, setBusy] = useState<boolean>(false);
   const [target, setTarget] = useState<number>(initialTarget);
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
   const [questions, setQuestions] = useState<Question[]>(initialQuestions);
@@ -76,21 +77,30 @@ export const QuestionProvider = ({
     setQuestions([]);
   };
 
-  const generateQuestion = async () => {
+  useEffect(() => {
+    // Only generate new questions if we have not reached the target yet
     if (questions.length >= target) {
       return;
     }
 
-    const questionsSimplified = questions.map((question) => question.question);
-    const questionsResponse = await fetchQuestion(company, questions.length, QUESTION_COUNT, questionsSimplified);
-    const questionsParsed = JSON.stringify([...questions, questionsResponse]);
+    // Prevent double fetching
+    if (busy) {
+      return;
+    }
 
-    setQuestions([...questions, questionsResponse]);
+    const generateQuestion = async () => {
+      setBusy(true);
 
-    Cookies.set("questions", questionsParsed);
-  };
+      const questionsSimplified = questions.map((question) => question.question);
+      const questionsResponse = await fetchQuestion(company, questions.length, QUESTION_COUNT, questionsSimplified);
+      const questionsParsed = JSON.stringify([...questions, questionsResponse]);
 
-  useEffect(() => {
+      setBusy(false);
+      setQuestions([...questions, questionsResponse]);
+
+      Cookies.set("questions", questionsParsed);
+    };
+
     generateQuestion();
   }, [target, questions.length]);
 

@@ -41,8 +41,6 @@ function ResultsItem({ answer, question }: ResultsItemProps) {
 
       {choice && (
         <>
-          <p className={styles.results__list__item__description}>{choice.explain}</p>
-
           <ul className={styles.results__list__item__impact}>
             <li className={styles.results__list__item__impact__item}>
               <span
@@ -65,6 +63,8 @@ function ResultsItem({ answer, question }: ResultsItemProps) {
               ></span>
             </li>
           </ul>
+
+          <p className={styles.results__list__item__description}>{choice.explain}</p>
         </>
       )}
     </li>

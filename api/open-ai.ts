@@ -30,14 +30,21 @@ export async function fetchQuestion(
   let chatContent = questionPrompt;
 
   // prettier-ignore
-  chatContent += `Je hebt de taak om de ${index}e vraag in de serie te genereren. In totaal worden er ${limit} vragen gegenereerd, houd hier rekening mee ivm de opbouw van het verhaal. Een voorbeeld van het formaat en de stijl van de vragen wordt hieronder gegeven:\n`;
-  chatContent += `${questionObject}\n`;
+  chatContent += `\nJe hebt de taak om de ${index}e vraag in de serie te genereren. In totaal worden er ${limit} vragen gegenereerd, houd hier rekening mee ivm de opbouw van het verhaal. Een voorbeeld van het formaat en de stijl van de vragen wordt hieronder gegeven:\n\n`;
+  chatContent += `${questionObject}\n\n`;
 
   if (asked.length > 0) {
-    const chatAsked = asked.join(", ");
+    const chatAsked = asked.join('", "');
 
-    chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: ${chatAsked}\n`;
+    chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: "${chatAsked}"\n`;
   }
+
+  console.log(chatContent);
+  console.log(
+    `Bedrijf naam: ${company.name}\n` +
+      `Bedrijf activiteiten: ${company.activity}\n` +
+      `Bedrijf missie: ${company.mission}\n`,
+  );
 
   const chatCompletion = await openai.chat.completions.create({
     messages: [
