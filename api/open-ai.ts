@@ -34,7 +34,6 @@ export async function generateQuestion(
   chatContent += `${questionObject}\n`;
 
   if (asked.length > 0) {
-    console.log("THING");
     const chatAsked = asked.join(", ");
 
     chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: ${chatAsked}\n`;

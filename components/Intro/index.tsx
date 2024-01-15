@@ -9,21 +9,21 @@ import Cookies from "js-cookie";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
-import { Answer, Company, Question } from "@/types";
-import { useEffect, useState } from "react";
-import { generateQuestion } from "../../api/open-ai";
+import { useState } from "react";
+import { useQuestion } from "@/context/QuestionContext";
+import { Answer, Question } from "@/types";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
 type IntroProps = {
   initialAnswers: Answer[];
-  initialQuestions: Question[];
 };
 
-export default function Intro({ initialAnswers, initialQuestions }: IntroProps) {
+export default function Intro({ initialAnswers }: IntroProps) {
+  const { questions, generateQuestions, resetQuestions } = useQuestion();
+
   const [index, setIndex] = useState(initialAnswers.length);
   const [answers, setAnswers] = useState(initialAnswers);
-  const [questions, setQuestions] = useState(initialQuestions);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];
   const questionsAnswered = index - 3 >= QUESTION_COUNT;
@@ -62,57 +62,11 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
     // If the user has answered the first three questions we can generate more questions
     if (answersUpdated.length === 2 || answersUpdated.length === 3) {
       const company = getCompany(answersUpdated);
-      const index = questions.length;
       const count = answersUpdated.length === 2 ? 1 : 5;
 
-      handleCompletion(company, index, count);
+      generateQuestions(company, count);
     }
   };
-
-  // This recursive function will generate questions until the limit is reached
-  const handleCompletion = async (company: Company, index: number, todo: number, asked: string[] = []) => {
-    if (todo <= 0) {
-      return;
-    }
-
-    const question = await generateQuestion(company, index, QUESTION_COUNT, asked);
-    const questionValue = question.question;
-
-    setQuestions((questions) => {
-      const questionsUpdated = [...questions, question];
-      const questionsParsed = JSON.stringify(questionsUpdated);
-
-      Cookies.set("questions", questionsParsed);
-
-      return questionsUpdated;
-    });
-
-    todo -= 1;
-    index += 1;
-
-    asked = [...asked, questionValue];
-
-    handleCompletion(company, index, todo, asked);
-  };
-
-  // useEffect(() => {
-  //   // In case the user closed the tab mid-way through the question generation process we'll resume it
-  //   const resumeGeneration = async () => {
-  //     if (questions.length >= QUESTION_COUNT || answers.length < 3) {
-  //       return;
-  //     }
-
-  //     const index = questions.length;
-  //     const todo = QUESTION_COUNT - index;
-
-  //     const company = getCompany(answers);
-  //     const asked = questions.map((question) => question.question);
-
-  //     handleCompletion(company, index, todo, asked);
-  //   };
-
-  //   resumeGeneration();
-  // }, []);
 
   return (
     <main className={styles.main}>
@@ -131,11 +85,10 @@ export default function Intro({ initialAnswers, initialQuestions }: IntroProps) 
       <Reset
         onReset={() => {
           Cookies.remove("answers");
-          Cookies.remove("questions");
 
           setIndex(0);
           setAnswers([]);
-          setQuestions([]);
+          resetQuestions();
 
           window.location.reload();
         }}
