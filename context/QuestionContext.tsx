@@ -14,8 +14,8 @@ interface QuestionContextType {
   questions: Question[];
 
   resetEverything: () => void;
-  requestQuestion: (increase: number) => void;
 
+  setTarget: (target: number) => void;
   setAnswers: (answers: Answer[]) => void;
 }
 
@@ -25,8 +25,8 @@ const QuestionContext = createContext<QuestionContextType>({
   questions: [],
 
   resetEverything: () => {},
-  requestQuestion: () => {},
 
+  setTarget: (target: number) => {},
   setAnswers: (answers: Answer[]) => {},
 });
 
@@ -53,23 +53,6 @@ export const QuestionProvider = ({
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
   const [questions, setQuestions] = useState<Question[]>(initialQuestions);
 
-  const requestQuestion = async (increase: number) => {
-    console.log(`Requesting ${increase} questions from the context`);
-
-    setTarget((target) => target + increase);
-  };
-
-  const resetEverything = () => {
-    Cookies.remove("target");
-    Cookies.remove("company");
-    Cookies.remove("answers");
-    Cookies.remove("questions");
-
-    setTarget(0);
-    setAnswers([]);
-    setQuestions([]);
-  };
-
   const company = useMemo(() => {
     const answerName = answers.find((answer) => answer.uuid === "4dfb8b90-a70e-47cc-a9f2-51608f86d04c");
     const answerMission = answers.find((answer) => answer.uuid === "76253f31-0daf-4fa5-908e-6538f7da5c16");
@@ -82,21 +65,32 @@ export const QuestionProvider = ({
     };
   }, [answers]);
 
-  useEffect(() => {
+  const resetEverything = () => {
+    Cookies.remove("target");
+    Cookies.remove("company");
+    Cookies.remove("answers");
+    Cookies.remove("questions");
+
+    setTarget(0);
+    setAnswers([]);
+    setQuestions([]);
+  };
+
+  const generateQuestion = async () => {
     if (questions.length >= target) {
       return;
     }
 
-    const generateQuestion = async () => {
-      const questionsSimplified = questions.map((question) => question.question);
-      const questionsResponse = await fetchQuestion(company, questions.length, QUESTION_COUNT, questionsSimplified);
-      const questionsParsed = JSON.stringify([...questions, questionsResponse]);
+    const questionsSimplified = questions.map((question) => question.question);
+    const questionsResponse = await fetchQuestion(company, questions.length, QUESTION_COUNT, questionsSimplified);
+    const questionsParsed = JSON.stringify([...questions, questionsResponse]);
 
-      setQuestions([...questions, questionsResponse]);
+    setQuestions([...questions, questionsResponse]);
 
-      Cookies.set("questions", questionsParsed);
-    };
+    Cookies.set("questions", questionsParsed);
+  };
 
+  useEffect(() => {
     generateQuestion();
   }, [target, questions.length]);
 
@@ -108,6 +102,14 @@ export const QuestionProvider = ({
     setAnswers(answers);
   };
 
+  const setTargetWrapper = (target: number) => {
+    const targetJson = JSON.stringify(target);
+
+    Cookies.set("target", targetJson);
+
+    setTarget(target);
+  };
+
   return (
     <QuestionContext.Provider
       value={{
@@ -116,8 +118,8 @@ export const QuestionProvider = ({
         questions,
 
         resetEverything,
-        requestQuestion,
 
+        setTarget: setTargetWrapper,
         setAnswers: setAnswersWrapper,
       }}
     >

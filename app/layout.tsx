@@ -24,16 +24,16 @@ const poppins = Poppins({
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const cookie = cookies();
 
-  const targetCookies = cookie.get("target");
-  const answersCookies = cookie.get("answers");
-  const questionsCookies = cookie.get("questions");
+  // const targetCookies = cookie.get("target");
+  // const answersCookies = cookie.get("answers");
+  // const questionsCookies = cookie.get("questions");
 
-  const targetParsed = targetCookies ? parseInt(targetCookies.value) : 0;
-  const answersParsed = answersCookies ? JSON.parse(answersCookies.value) : [];
-  const questionsParsed = questionsCookies ? JSON.parse(questionsCookies.value) : [];
+  // const targetParsed = targetCookies ? parseInt(targetCookies.value) : 0;
+  // const answersParsed = answersCookies ? JSON.parse(answersCookies.value) : [];
+  // const questionsParsed = questionsCookies ? JSON.parse(questionsCookies.value) : [];
 
   return (
-    <QuestionProvider initialTarget={targetParsed} initialAnswers={answersParsed} initialQuestions={questionsParsed}>
+    <QuestionProvider initialTarget={0} initialAnswers={[]} initialQuestions={[]}>
       <PlausibleProvider
         domain="meesterproef.sjorsvanholst.nl"
         enabled={true}
