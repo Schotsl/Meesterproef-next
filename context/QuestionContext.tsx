@@ -3,8 +3,8 @@
 import Cookies from "js-cookie";
 
 import { Question, Answer } from "@/types";
-import { generateQuestion } from "../api/open-ai";
-import { useState, useEffect, ReactNode, useContext, createContext } from "react";
+import { fetchQuestion } from "../api/open-ai";
+import { useState, useEffect, ReactNode, useContext, createContext, useMemo } from "react";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
@@ -13,8 +13,8 @@ interface QuestionContextType {
   answers: Answer[];
   questions: Question[];
 
-  reset: () => void;
-  generateQuestions: (increase: number) => void;
+  resetEverything: () => void;
+  requestQuestion: (increase: number) => void;
 
   setAnswers: (answers: Answer[]) => void;
 }
@@ -24,8 +24,8 @@ const QuestionContext = createContext<QuestionContextType>({
   answers: [],
   questions: [],
 
-  reset: () => {},
-  generateQuestions: () => {},
+  resetEverything: () => {},
+  requestQuestion: () => {},
 
   setAnswers: (answers: Answer[]) => {},
 });
@@ -53,13 +53,13 @@ export const QuestionProvider = ({
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
   const [questions, setQuestions] = useState<Question[]>(initialQuestions);
 
-  const generateQuestions = async (increase: number) => {
+  const requestQuestion = async (increase: number) => {
     console.log(`Requesting ${increase} questions from the context`);
 
     setTarget((target) => target + increase);
   };
 
-  const reset = () => {
+  const resetEverything = () => {
     Cookies.remove("target");
     Cookies.remove("company");
     Cookies.remove("answers");
@@ -70,40 +70,43 @@ export const QuestionProvider = ({
     setQuestions([]);
   };
 
+  const company = useMemo(() => {
+    const answerName = answers.find((answer) => answer.uuid === "4dfb8b90-a70e-47cc-a9f2-51608f86d04c");
+    const answerMission = answers.find((answer) => answer.uuid === "76253f31-0daf-4fa5-908e-6538f7da5c16");
+    const answerActivity = answers.find((answer) => answer.uuid === "0db64dd3-5440-49a4-9252-c0d8ba49fa62");
+
+    return {
+      name: answerName ? answerName.value : "Nog niet beantwoord, maar vraag er niet naar",
+      mission: answerMission ? answerMission.value : "Nog niet beantwoord, maar vraag er niet naar",
+      activity: answerActivity ? answerActivity.value : "Nog niet beantwoord, maar vraag er niet naar",
+    };
+  }, [answers]);
+
   useEffect(() => {
     if (questions.length >= target) {
       return;
     }
 
-    const generate = async () => {
-      // I'm assuming these answers are present since these are the first three questions
-      const answerName = answers.find((answer) => answer.uuid === "4dfb8b90-a70e-47cc-a9f2-51608f86d04c")!;
-      const answerMission = answers.find((answer) => answer.uuid === "76253f31-0daf-4fa5-908e-6538f7da5c16")!;
-      const answerActivity = answers.find((answer) => answer.uuid === "0db64dd3-5440-49a4-9252-c0d8ba49fa62")!;
+    const generateQuestion = async () => {
+      const questionsSimplified = questions.map((question) => question.question);
+      const questionsResponse = await fetchQuestion(company, questions.length, QUESTION_COUNT, questionsSimplified);
+      const questionsParsed = JSON.stringify([...questions, questionsResponse]);
 
-      const name = answerName ? answerName.value : "Nog niet beantwoord, maar vraag er niet naar";
-      const mission = answerMission ? answerMission.value : "Nog niet beantwoord, maar vraag er niet naar";
-      const activity = answerActivity ? answerActivity.value : "Nog niet beantwoord, maar vraag er niet naar";
-
-      const company = { name, mission, activity };
-
-      const questionSimplified = questions.map((question) => question.question);
-      const questionResponse = await generateQuestion(company!, questions.length, QUESTION_COUNT, questionSimplified);
-      const questionsParsed = JSON.stringify([...questions, questionResponse]);
-
-      setQuestions([...questions, questionResponse]);
+      setQuestions([...questions, questionsResponse]);
 
       Cookies.set("questions", questionsParsed);
     };
 
-    generate();
+    generateQuestion();
   }, [target, questions.length]);
 
-  useEffect(() => {
+  const setAnswersWrapper = (answers: Answer[]) => {
     const answersJson = JSON.stringify(answers);
 
     Cookies.set("answers", answersJson);
-  }, [answers]);
+
+    setAnswers(answers);
+  };
 
   return (
     <QuestionContext.Provider
@@ -112,10 +115,10 @@ export const QuestionProvider = ({
         answers,
         questions,
 
-        reset,
-        generateQuestions,
+        resetEverything,
+        requestQuestion,
 
-        setAnswers,
+        setAnswers: setAnswersWrapper,
       }}
     >
       {children}

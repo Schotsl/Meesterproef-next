@@ -9,13 +9,13 @@ import Results from "@/components/Results";
 import Background from "@/components/Background";
 
 import { useState } from "react";
-import { useQuestion } from "@/context/QuestionContext";
 import { Question } from "@/types";
+import { useQuestion } from "@/context/QuestionContext";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
 export default function Intro() {
-  const { answers, questions, generateQuestions, reset, setAnswers } = useQuestion();
+  const { answers, questions, requestQuestion, resetEverything, setAnswers } = useQuestion();
 
   const [index, setIndex] = useState(answers.length);
 
@@ -33,13 +33,11 @@ export default function Intro() {
     setIndex(index + 1);
     setAnswers(answersUpdated);
 
-    console.log(answersUpdated);
-
     // If the user has answered the first three questions we can generate more questions
     if (answersUpdated.length === 2 || answersUpdated.length === 3) {
       const count = answersUpdated.length === 2 ? 1 : 5;
 
-      generateQuestions(count);
+      requestQuestion(count);
     }
   };
 
@@ -57,7 +55,7 @@ export default function Intro() {
         {questionsAnswered && <Results questions={questions} answers={answers} />}
       </div>
 
-      <Reset onReset={reset} />
+      <Reset onReset={resetEverything} />
     </main>
   );
 }

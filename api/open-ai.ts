@@ -15,7 +15,7 @@ const openai = new OpenAI({ apiKey: OPENAI_KEY });
 const questionObject = JSON.stringify(questionJSON);
 const questionPrompt = readFileSync("prompt.txt", "utf8");
 
-export async function generateQuestion(
+export async function fetchQuestion(
   company: Company,
   index: number,
   limit: number,
