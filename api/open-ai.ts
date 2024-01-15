@@ -39,13 +39,6 @@ export async function fetchQuestion(
     chatContent += `Je hebt de volgende vragen al gesteld. Deze vraag mag niet hetzelfde zijn, maar je mag er wel op inspelen: "${chatAsked}"\n`;
   }
 
-  console.log(chatContent);
-  console.log(
-    `Bedrijf naam: ${company.name}\n` +
-      `Bedrijf activiteiten: ${company.activity}\n` +
-      `Bedrijf missie: ${company.mission}\n`,
-  );
-
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       {

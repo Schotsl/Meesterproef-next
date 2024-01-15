@@ -8,15 +8,16 @@ import Reset from "@/components/Reset";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Question } from "@/types";
 import { useQuestion } from "@/context/QuestionContext";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
 export default function Intro() {
-  const { answers, questions, resetEverything, setAnswers, setTarget } = useQuestion();
+  const { answers, questions, setAnswers, setTarget } = useQuestion();
 
+  const [money, setMoney] = useState<number>(10);
   const [index, setIndex] = useState(answers.length);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];
@@ -39,15 +40,9 @@ export default function Intro() {
     }
   };
 
-  const handleReset = () => {
-    setIndex(0);
-
-    resetEverything();
-  };
-
   return (
     <main className={styles.main}>
-      <Background color={questionCurrent ? questionCurrent.color : questionPrevious?.color} />
+      <Background money={money} color={questionCurrent ? questionCurrent.color : questionPrevious?.color} />
 
       <div className={styles.main__content}>
         {questionCurrent && (
@@ -59,7 +54,7 @@ export default function Intro() {
         {questionsAnswered && <Results questions={questions} answers={answers} />}
       </div>
 
-      <Reset onReset={handleReset} />
+      {/* <Reset onReset={handleReset} /> */}
     </main>
   );
 }

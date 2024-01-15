@@ -18,7 +18,7 @@
     &:nth-of-type(1) {
       bottom: 0;
       opacity: 1;
-      z-index: 1000;
+      z-index: 3;
       animation: wave 30s linear infinite;
       animation-delay: 0s;
     }
@@ -26,7 +26,7 @@
     &:nth-of-type(2) {
       bottom: 10px;
       opacity: 0.5;
-      z-index: 999;
+      z-index: 2;
       animation: wave_alternate 15s linear infinite;
       animation-delay: -5s;
     }
@@ -34,7 +34,7 @@
     &:nth-of-type(3) {
       bottom: 15px;
       opacity: 0.2;
-      z-index: 998;
+      z-index: 1;
       animation: wave 30s linear infinite;
       animation-delay: -2s;
     }
@@ -42,7 +42,7 @@
     &:nth-of-type(4) {
       bottom: 20px;
       opacity: 0.7;
-      z-index: 997;
+      z-index: 0;
       animation: wave_alternate 5s linear infinite;
       animation-delay: -5s;
     }
@@ -63,6 +63,17 @@
       100% {
         background-position-x: -1000px;
       }
+    }
+  }
+
+  &__suspense {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    &__doodle {
+      width: auto;
+      position: absolute;
     }
   }
 }
