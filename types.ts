@@ -7,15 +7,18 @@ export type Question = {
   question: string;
 };
 
+// TODO: Remove underscore
+export type Impact = {
+  financialPresentation: number;
+  employeeWellbeing: number;
+  societalImpact: number;
+};
+
 export type Option = {
   label: string;
   value: string;
+  impact: Impact;
   explain: string;
-  impact: {
-    financial_presentation: number;
-    employee_wellbeing: number;
-    societal_impact: number;
-  };
 };
 
 export type Answer = {
@@ -23,8 +26,14 @@ export type Answer = {
   value: string;
 };
 
+export type AnswerTransformed = {
+  title: string;
+  choice: Option;
+  question: string;
+};
+
 export type Company = {
   name: string;
-  activity: string;
   mission: string;
+  activity: string;
 };

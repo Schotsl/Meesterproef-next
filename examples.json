@@ -7,9 +7,9 @@
       "value": "agree",
       "explain": "Je kiest voor uitbesteding om kosten te besparen, wat financieel voordelig is maar negatief uitpakt voor werknemerswelzijn en maatschappelijke impact.",
       "impact": {
-        "financial_presentation": 0.89,
-        "employee_wellbeing": -0.92,
-        "societal_impact": -0.52
+        "financialPresentation": 0.89,
+        "employeeWellbeing": -0.92,
+        "societalImpact": -0.52
       }
     },
     {
@@ -17,9 +17,9 @@
       "value": "disagree",
       "explain": "Je kiest voor het behoud van werknemers en lokale productie, wat goed is voor hun welzijn en de maatschappij, maar minder voordelig voor de financiën.",
       "impact": {
-        "financial_presentation": -0.53,
-        "employee_wellbeing": 0.94,
-        "societal_impact": 0.68
+        "financialPresentation": -0.53,
+        "employeeWellbeing": 0.94,
+        "societalImpact": 0.68
       }
     }
   ]

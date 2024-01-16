@@ -82,13 +82,13 @@ export async function fetchQuestion(
                   impact: {
                     type: "object",
                     properties: {
-                      financial_presentation: {
+                      financialPresentation: {
                         type: "number",
                       },
-                      employee_wellbeing: {
+                      employeeWellbeing: {
                         type: "number",
                       },
-                      societal_impact: {
+                      societalImpact: {
                         type: "number",
                       },
                     },

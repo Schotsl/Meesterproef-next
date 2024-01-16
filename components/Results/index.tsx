@@ -45,21 +45,21 @@ function ResultsItem({ answer, question }: ResultsItemProps) {
             <li className={styles.results__list__item__impact__item}>
               <span
                 className={styles.results__list__item__impact__item__slider}
-                style={{ width: `${(choice!.impact.employee_wellbeing + 1) * 50}%` }}
+                style={{ width: `${(choice!.impact.employeeWellbeing + 1) * 50}%` }}
               ></span>
             </li>
 
             <li className={styles.results__list__item__impact__item}>
               <span
                 className={styles.results__list__item__impact__item__slider}
-                style={{ width: `${(choice!.impact.financial_presentation + 1) * 50}%` }}
+                style={{ width: `${(choice!.impact.financialPresentation + 1) * 50}%` }}
               ></span>
             </li>
 
             <li className={styles.results__list__item__impact__item}>
               <span
                 className={styles.results__list__item__impact__item__slider}
-                style={{ width: `${(choice!.impact.societal_impact + 1) * 50}%` }}
+                style={{ width: `${(choice!.impact.societalImpact + 1) * 50}%` }}
               ></span>
             </li>
           </ul>

@@ -4,11 +4,10 @@ import styles from "./Intro.module.scss";
 import defaultQuestions from "../../questions.json";
 
 import Input from "@/components/Input";
-import Reset from "@/components/Reset";
 import Results from "@/components/Results";
 import Background from "@/components/Background";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Question } from "@/types";
 import { useQuestion } from "@/context/QuestionContext";
 
@@ -31,6 +30,7 @@ export default function Intro() {
 
     const answersUpdated = [...answers, { uuid, value: answer }];
 
+    setMoney((prev) => prev + 10);
     setIndex(index + 1);
     setAnswers(answersUpdated);
 
@@ -53,8 +53,6 @@ export default function Intro() {
 
         {questionsAnswered && <Results questions={questions} answers={answers} />}
       </div>
-
-      {/* <Reset onReset={handleReset} /> */}
     </main>
   );
 }

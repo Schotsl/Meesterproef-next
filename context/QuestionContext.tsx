@@ -2,8 +2,8 @@
 
 import Cookies from "js-cookie";
 
-import { Question, Answer } from "@/types";
 import { fetchQuestion } from "../api/open-ai";
+import { Question, Answer, Impact, AnswerTransformed } from "@/types";
 import { useState, useEffect, ReactNode, useContext, createContext, useMemo } from "react";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
@@ -12,6 +12,9 @@ interface QuestionContextType {
   target: number;
   answers: Answer[];
   questions: Question[];
+
+  answersImpact: Impact;
+  answersTransformed: AnswerTransformed[];
 
   resetEverything: () => void;
 
@@ -23,6 +26,13 @@ const QuestionContext = createContext<QuestionContextType>({
   target: 0,
   answers: [],
   questions: [],
+
+  answersTransformed: [],
+  answersImpact: {
+    societalImpact: 0,
+    employeeWellbeing: 0,
+    financialPresentation: 0,
+  },
 
   resetEverything: () => {},
 
@@ -120,12 +130,45 @@ export const QuestionProvider = ({
     setTarget(target);
   };
 
+  const answersTransformed = useMemo(() => {
+    return answers.map((answer) => {
+      const question = questions.find((question) => question.uuid === answer.uuid)!;
+      const choice = question.options?.find((choice) => choice.value === answer.value)!;
+
+      return {
+        title: question.title,
+        question: question?.question,
+        choice,
+      };
+    });
+  }, [answers]);
+
+  const answersImpact = useMemo(() => {
+    return answersTransformed.reduce(
+      (previousValue, currentValue) => {
+        return {
+          societalImpact: previousValue.societalImpact + currentValue.choice.impact.societalImpact,
+          employeeWellbeing: previousValue.employeeWellbeing + currentValue.choice.impact.employeeWellbeing,
+          financialPresentation: previousValue.financialPresentation + currentValue.choice.impact.financialPresentation,
+        };
+      },
+      {
+        societalImpact: 0,
+        employeeWellbeing: 0,
+        financialPresentation: 0,
+      },
+    );
+  }, [answersTransformed]);
+
   return (
     <QuestionContext.Provider
       value={{
         target,
         answers,
         questions,
+
+        answersImpact,
+        answersTransformed,
 
         resetEverything,
 
