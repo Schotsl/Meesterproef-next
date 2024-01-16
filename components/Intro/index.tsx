@@ -16,7 +16,7 @@ const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 export default function Intro() {
   const { answers, questions, setAnswers, setTarget } = useQuestion();
 
-  const [money, setMoney] = useState<number>(0);
+  const [money, setMoney] = useState<number>(25);
   const [index, setIndex] = useState(answers.length);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];

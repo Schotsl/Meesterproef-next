@@ -66,6 +66,25 @@
     }
   }
 
+  &__cliff {
+    left: 5vw;
+    width: 20rem;
+    bottom: -6rem;
+    height: auto;
+    z-index: 2;
+    position: absolute;
+    animation: cliff 5s ease-in-out infinite alternate;
+  }
+
+  @keyframes cliff {
+    0% {
+      transform: rotate(-3deg) scale(1.01);
+    }
+    100% {
+      transform: rotate(3deg) scale(0.99);
+    }
+  }
+
   &__suspense {
     width: 100vw;
     height: 100vh;
@@ -73,6 +92,7 @@
 
     &__doodle {
       width: auto;
+      position: absolute;
       position: absolute;
     }
   }

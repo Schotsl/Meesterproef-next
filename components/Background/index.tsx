@@ -5,6 +5,8 @@ import { moneyDoodles } from "./_doodles";
 import { DoodleProperties } from "./_types";
 import { numberBetween, floatBetween } from "@/helper";
 
+import imageCliffFirst from "@/public/background/cliff.png";
+
 import Image from "next/image";
 
 type BackgroundProps = {
@@ -73,22 +75,26 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
       <div className={styles.background__cloud}></div>
       <div className={styles.background__cloud}></div>
 
-      <div className={styles.background__suspense}>
-        {doodles.map((doodle, index) => (
-          <Image
-            alt="Profit doodle"
-            key={index}
-            src={doodle.doodle.image}
-            className={styles.background__suspense__doodle}
-            style={{
-              zIndex: doodle.index,
-              height: `${doodle.doodle.height}px`,
-              filter: `brightness(${0.8 + doodle.index * 0.05})`,
-              transform: `translate(${doodle.positionX}px, ${doodle.positionY}px) rotate(${doodle.tilt}deg) `,
-            }}
-          />
-        ))}
-      </div>
+      <Image alt="Profit cliff" src={imageCliffFirst} className={styles.background__cliff} />
+
+      {/* <div className={styles.background__suspense}> */}
+      {doodles.map((doodle, index) => (
+        <Image
+          alt="Profit doodle"
+          key={index}
+          src={doodle.doodle.image}
+          className={styles.background__suspense__doodle}
+          style={{
+            zIndex: doodle.index,
+            height: `${doodle.doodle.height}px`,
+            filter: `brightness(${0.8 + doodle.index * 0.05})`,
+            transform: `translate(${doodle.positionX}px, ${doodle.positionY}px) rotate(${doodle.tilt}deg) scale(${
+              doodle.index * 0.1 + 0.5
+            })`,
+          }}
+        />
+      ))}
+      {/* </div> */}
     </div>
   );
 }
