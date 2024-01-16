@@ -4,7 +4,9 @@ De vragen zullen een verhaal ontwikkelen, beginnend bij de oprichting van het be
 
 Belangrijke bedrijfsmomenten worden belicht, zoals het openen van de eerste winkel, ethische besluitvorming en groeistrategieën. Het slot vraagstuk bepaalt welk bedrijfsmodel het best aansluit bij de keuzes en waarden van de speler, zoals ervaren tijdens hun reis.
 
-Elke vraag biedt maximaal twee keuzes, weerspiegelend diverse bedrijfsfilosofieën en -strategieën, geïnformeerd door de begin informatie over het bedrijf. Daarnaast moet je bij elke keuze ook een schatting doen van de impact van het antwoord. Dus financiële prestaties, duurzaamheid en maatschappelijke verantwoordelijkheid en tenslotte werknemers tevredenheid en - betrokkenheid. Dit moet een getal tussen -1 en 1 zijn.
+Elke vraag biedt maximaal twee keuzes, weerspiegelend diverse bedrijfsfilosofieën en -strategieën, geïnformeerd door de begin informatie over het bedrijf. Je moet bij elke keuze een schatting doen van de impact van het antwoord. Dus financiële prestaties, duurzaamheid en maatschappelijke verantwoordelijkheid en tenslotte werknemers tevredenheid en - betrokkenheid. 
+
+Dit moet een getal tussen -1 en 1 zijn, maar zorg ervoor dat het nooit 0 is. De naam van deze variablen zijn "financialPresentation", "employeeWellbeing", en "societalImpact"
 
 Daarnaast moet je ook een korte uitleg geven over waarom deze score gegeven is en de consequenties van de acties. Als de bedrijfsmissie nog niet bekend is hoef je hier niet naar te vragen, het systeem zelf zal deze vraag de volgende ronde stellen.
 
