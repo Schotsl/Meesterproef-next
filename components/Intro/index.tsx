@@ -16,7 +16,7 @@ const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 export default function Intro() {
   const { answers, questions, setAnswers, setTarget } = useQuestion();
 
-  const [money, setMoney] = useState<number>(100);
+  const [money, setMoney] = useState<number>(0);
   const [index, setIndex] = useState(answers.length);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];
@@ -30,13 +30,13 @@ export default function Intro() {
 
     const answersUpdated = [...answers, { uuid, value: answer }];
 
-    setMoney((prev) => prev + 10);
     setIndex(index + 1);
     setAnswers(answersUpdated);
 
     // If the user has answered the first three questions we can generate more questions
     if (answersUpdated.length === 2 || answersUpdated.length === 3) {
       setTarget(answersUpdated.length === 2 ? 1 : 6);
+      setMoney((prev) => prev + 10);
     }
   };
 

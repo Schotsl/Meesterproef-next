@@ -131,7 +131,10 @@ export const QuestionProvider = ({
   };
 
   const answersTransformed = useMemo(() => {
-    return answers.map((answer) => {
+    // Remove the first three questions since they're intro questions
+    const answersSliced = answers.slice(3);
+
+    return answersSliced.map((answer) => {
       const question = questions.find((question) => question.uuid === answer.uuid)!;
       const choice = question.options?.find((choice) => choice.value === answer.value)!;
 

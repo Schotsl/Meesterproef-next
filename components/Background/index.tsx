@@ -32,7 +32,6 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
   }, []);
 
   useEffect(() => {
-    const doodlesCount = doodles.length;
     const doodlesAdded: DoodleProperties[] = [];
 
     // Generate more doodles if the count increases
@@ -52,7 +51,7 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
 
         // Randomize the position of the doodle on the screen
         positionX: Math.random() * window.innerWidth,
-        positionY: doodlesCount === 0 ? Math.random() * window.innerHeight : -randomDoodle.height,
+        positionY: -randomDoodle.height,
       });
     }
 
