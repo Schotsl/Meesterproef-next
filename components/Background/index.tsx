@@ -1,9 +1,9 @@
 import styles from "./Background.module.scss";
 
-import { useEffect, useState, useCallback } from "react";
-import { moneyDoodles } from "./_doodles";
-import { DoodleProperties } from "./_types";
 import { numberBetween, floatBetween } from "@/helper";
+import { DoodleImage, DoodleProperties } from "./_types";
+import { useEffect, useState, useCallback } from "react";
+import { moneyDoodles, workersDoodles, societyDoodles } from "./_doodles";
 
 import imageCliffFirst from "@/public/background/cliff.png";
 
@@ -12,10 +12,16 @@ import Image from "next/image";
 type BackgroundProps = {
   color?: string;
   money?: number;
+  society?: number;
+  workers?: number;
 };
 
-export default function Background({ color, money = 0 }: BackgroundProps) {
+export default function Background({ color, money = 0, society = 0, workers = 0 }: BackgroundProps) {
   const [doodles, setDoodles] = useState<DoodleProperties[]>([]);
+
+  const [moneyCount, setMoneyCount] = useState<number>(0);
+  const [societyCount, setSocietyCount] = useState<number>(0);
+  const [workersCount, setWorkersCount] = useState<number>(0);
 
   const updateDoodle = useCallback(() => {
     setDoodles((doodles) =>
@@ -37,28 +43,36 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
     const doodlesAdded: DoodleProperties[] = [];
 
     // Generate more doodles if the count increases
-    for (let i = doodles.length; i < money; i++) {
-      const randomIndex = numberBetween(0, moneyDoodles.length - 1);
-      const randomDoodle = moneyDoodles[randomIndex];
+    const addDoodles = (currentCount: number, targetCount: number, doodleArray: DoodleImage[]) => {
+      for (let i = currentCount; i < targetCount; i++) {
+        const randomIndex = numberBetween(0, doodleArray.length - 1);
+        const randomDoodle = doodleArray[randomIndex];
 
-      // Base the speed on the index of the doodle
-      const index = numberBetween(0, 4);
-      const speed = index + 4 + floatBetween(-2, 2);
+        // Base the speed on the index of the doodle
+        const index = numberBetween(0, 4);
+        const speed = index + 4 + floatBetween(-2, 2);
 
-      doodlesAdded.push({
-        tilt: numberBetween(-30, 30),
-        index,
-        speed,
-        doodle: randomDoodle,
+        doodlesAdded.push({
+          tilt: numberBetween(-30, 30),
+          index,
+          speed,
+          doodle: randomDoodle,
 
-        // Randomize the position of the doodle on the screen
-        positionX: Math.random() * window.innerWidth,
-        positionY: -randomDoodle.height,
-      });
-    }
+          // Randomize the position of the doodle on the screen
+          positionX: Math.random() * window.innerWidth,
+          positionY: -randomDoodle.height,
+        });
+      }
+
+      return targetCount;
+    };
+
+    setMoneyCount(addDoodles(moneyCount, money, moneyDoodles));
+    setWorkersCount(addDoodles(workersCount, workers, workersDoodles));
+    setSocietyCount(addDoodles(societyCount, society, societyDoodles));
 
     setDoodles((doodles) => [...doodles, ...doodlesAdded]);
-  }, [money]);
+  }, [money, society, workers]);
 
   // Update the doodles at 60FPS
   useEffect(() => {
@@ -77,7 +91,6 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
 
       <Image alt="Profit cliff" src={imageCliffFirst} className={styles.background__cliff} />
 
-      {/* <div className={styles.background__suspense}> */}
       {doodles.map((doodle, index) => (
         <Image
           alt="Profit doodle"
@@ -94,7 +107,6 @@ export default function Background({ color, money = 0 }: BackgroundProps) {
           }}
         />
       ))}
-      {/* </div> */}
     </div>
   );
 }
