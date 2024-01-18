@@ -23,6 +23,70 @@ import imageCloudFifth from "@/public/background/clouds/5.png";
 import imageCloudSixth from "@/public/background/clouds/6.png";
 import imageCloudSeventh from "@/public/background/clouds/7.png";
 
+import imageCMDFirst from "@/public/background/cmd/1.png";
+import imageCMDSecond from "@/public/background/cmd/2.png";
+import imageCMDThird from "@/public/background/cmd/3.png";
+import imageCMDFourth from "@/public/background/cmd/4.png";
+import imageCMDFifth from "@/public/background/cmd/5.png";
+import imageCMDSixth from "@/public/background/cmd/6.png";
+import imageCMDSeventh from "@/public/background/cmd/7.png";
+import imageCMDEighth from "@/public/background/cmd/8.png";
+import imageCMDNinth from "@/public/background/cmd/9.png";
+import imageCMDTenth from "@/public/background/cmd/10.png";
+import imageCMDEleventh from "@/public/background/cmd/11.png";
+import imageCMDTwelfth from "@/public/background/cmd/12.png";
+
+export const cmdDoodles: DoodleImage[] = [
+  {
+    image: imageCMDFirst,
+    height: 128,
+  },
+  {
+    image: imageCMDSecond,
+    height: 128,
+  },
+  {
+    image: imageCMDThird,
+    height: 128,
+  },
+  {
+    image: imageCMDFourth,
+    height: 128,
+  },
+  {
+    image: imageCMDFifth,
+    height: 128,
+  },
+  {
+    image: imageCMDSixth,
+    height: 128,
+  },
+  {
+    image: imageCMDSeventh,
+    height: 128,
+  },
+  {
+    image: imageCMDEighth,
+    height: 128,
+  },
+  {
+    image: imageCMDNinth,
+    height: 128,
+  },
+  {
+    image: imageCMDTenth,
+    height: 128,
+  },
+  {
+    image: imageCMDEleventh,
+    height: 128,
+  },
+  {
+    image: imageCMDTwelfth,
+    height: 128,
+  },
+];
+
 export const moneyDoodles: DoodleImage[] = [
   {
     image: imageProfitFirst,

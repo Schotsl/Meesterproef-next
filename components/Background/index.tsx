@@ -3,7 +3,7 @@ import styles from "./Background.module.scss";
 import { numberBetween, floatBetween } from "@/helper";
 import { DoodleImage, DoodleProperties } from "./_types";
 import { useEffect, useState, useCallback } from "react";
-import { moneyDoodles, workersDoodles, societyDoodles, cloudDoodles } from "./_doodles";
+import { moneyDoodles, workersDoodles, societyDoodles, cloudDoodles, cmdDoodles } from "./_doodles";
 
 import imageIslandMoney from "@/public/background/islands/money.png";
 import imageIslandSociety from "@/public/background/islands/society.png";
@@ -13,10 +13,14 @@ import Image from "next/image";
 
 type BackgroundProps = {
   color?: string;
+  cmd?: number;
   money?: number;
+  clouds?: number;
   society?: number;
   workers?: number;
-  completed: boolean;
+  spread?: boolean;
+  islands?: boolean;
+  completed?: boolean;
 };
 
 // TODO: Cleanup this entire component
@@ -26,10 +30,20 @@ type BackgroundProps = {
 // - Remove properties like mirrored, rotatable, transparent and use something like isCloud
 // - Refactor style object to a function or something
 
-export default function Background({ color, money = 0, society = 0, workers = 0, completed }: BackgroundProps) {
+export default function Background({
+  color,
+  cmd = 0,
+  money = 0,
+  clouds = 50,
+  society = 0,
+  workers = 0,
+  spread = false,
+  islands = true,
+  completed = false,
+}: BackgroundProps) {
   const [doodles, setDoodles] = useState<DoodleProperties[]>([]);
-  const [clouds, setClouds] = useState(50);
 
+  const [cmdCount, setCmdCount] = useState<number>(0);
   const [cloudCount, setCloudCount] = useState<number>(0);
   const [moneyCount, setMoneyCount] = useState<number>(0);
   const [societyCount, setSocietyCount] = useState<number>(0);
@@ -82,20 +96,25 @@ export default function Background({ color, money = 0, society = 0, workers = 0,
 
           // Randomize the position of the doodle on the screen
           positionX: Math.random() * window.innerWidth,
-          positionY: cloud ? window.innerHeight * floatBetween(0.95, 1.05) - randomDoodle.height : -randomDoodle.height,
+          positionY: cloud
+            ? window.innerHeight * floatBetween(0.95, 1.05) - randomDoodle.height
+            : spread
+              ? window.innerHeight * Math.random()
+              : -randomDoodle.height,
         });
       }
 
       return targetCount;
     };
 
+    setCmdCount(addDoodles(cmdCount, cmd, cmdDoodles, false));
     setCloudCount(addDoodles(cloudCount, clouds, cloudDoodles, true));
     setMoneyCount(addDoodles(moneyCount, money, moneyDoodles, false));
     setWorkersCount(addDoodles(workersCount, workers, workersDoodles, false));
     setSocietyCount(addDoodles(societyCount, society, societyDoodles, false));
 
     setDoodles((doodles) => [...doodles, ...doodlesAdded]);
-  }, [money, society, workers]);
+  }, [cmd, clouds, money, society, workers]);
 
   // Update the doodles at 60FPS
   useEffect(() => {
@@ -107,26 +126,30 @@ export default function Background({ color, money = 0, society = 0, workers = 0,
 
   return (
     <div className={styles.background} style={{ backgroundColor: color }}>
-      <Image
-        alt="Profit island"
-        src={imageIslandMoney}
-        style={{ bottom: `${completed ? -600 : -300 + money * 5}px` }}
-        className={styles.background__island}
-      />
+      {islands && (
+        <>
+          <Image
+            alt="Profit island"
+            src={imageIslandMoney}
+            style={{ bottom: `${completed ? -600 : -300 + money * 5}px` }}
+            className={styles.background__island}
+          />
 
-      <Image
-        alt="Profit island"
-        src={imageIslandWorkers}
-        style={{ bottom: `${completed ? -600 : -300 + workers * 5}px` }}
-        className={styles.background__island}
-      />
+          <Image
+            alt="Profit island"
+            src={imageIslandWorkers}
+            style={{ bottom: `${completed ? -600 : -300 + workers * 5}px` }}
+            className={styles.background__island}
+          />
 
-      <Image
-        alt="Profit island"
-        src={imageIslandSociety}
-        style={{ bottom: `${completed ? -600 : -300 + society * 5}px` }}
-        className={styles.background__island}
-      />
+          <Image
+            alt="Profit island"
+            src={imageIslandSociety}
+            style={{ bottom: `${completed ? -600 : -300 + society * 5}px` }}
+            className={styles.background__island}
+          />
+        </>
+      )}
 
       {doodles.map((doodle, index) => (
         <Image
