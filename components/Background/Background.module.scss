@@ -13,27 +13,48 @@
     height: auto;
     z-index: 4;
     position: absolute;
-    animation: island 5s ease-in-out infinite alternate;
     transition: all 0.5s ease-in-out;
+
+    &:nth-of-type(1) {
+      animation: islandFirst 5s infinite alternate ease-in-out;
+    }
 
     &:nth-of-type(2) {
       left: calc(50% - 10rem);
-      animation-delay: 1.5s;
+      animation: islandSecond 5s infinite alternate ease-in-out;
     }
 
     &:nth-of-type(3) {
-      right: 5vw;
       left: auto;
-      animation-delay: 3s;
+      right: 5vw;
+      animation: islandThird 5s infinite alternate ease-in-out;
     }
   }
 
-  @keyframes island {
+  @keyframes islandFirst {
     0% {
       transform: rotate(-3deg) scale(1.01);
     }
     100% {
       transform: rotate(3deg) scale(0.99);
+    }
+  }
+
+  @keyframes islandSecond {
+    0% {
+      transform: rotate(4deg) scale(0.98);
+    }
+    100% {
+      transform: rotate(-2deg) scale(1);
+    }
+  }
+
+  @keyframes islandThird {
+    0% {
+      transform: rotate(-4deg) scale(1);
+    }
+    100% {
+      transform: rotate(2deg) scale(1.02);
     }
   }
 
