@@ -14,7 +14,50 @@ import workersIcon from "@/public/background/workers/2.png";
 export default function Results({ answers, questions }: ResultsProps) {
   return (
     <section className={styles.results}>
-      {/* <h2 className={styles.results__title}>Your results</h2> */}
+      <div className={styles.results__card}>
+        <h2 className={styles.results__title}>Jou uitslag!</h2>
+        <h3 className={styles.results__subtitle}>Dit is wat jij belangrijk vindt</h3>
+        <p>
+          Op basis van jouw keuzes lijkt het traditionele bedrijfsmodel het beste bij jou te passen. Wat betekent dit
+          precies?
+        </p>
+
+        <p>
+          Een traditioneel bedrijf is vaak gestructureerd rond een duidelijke hiërarchie en eigendomsverhoudingen. In
+          dit model zijn de aandeelhouders vaak de eigenaren van het bedrijf, en de besluitvorming is meestal in handen
+          van een directie of managementteam.
+        </p>
+
+        <h3 className={styles.results__subtitle}>Kenmerken van een Traditioneel Bedrijf:</h3>
+
+        <ul>
+          <li>
+            <b>Aandeelhouderschap</b>: De aandeelhouders bezitten het bedrijf en hun stemrecht is vaak gerelateerd aan
+            het aantal aandelen dat ze hebben.
+          </li>
+          <li>
+            <b>Winstgericht</b>: Het primaire doel is het maximaliseren van de winst voor aandeelhouders.
+          </li>
+          <li>
+            <b>Top-down Management</b>: Beslissingen worden genomen door hoger management en doorgevoerd binnen de
+            organisatie.
+          </li>
+          <li>
+            <b>Groei en Uitbreiding</b>: De focus ligt vaak op het vergroten van marktaandeel en het verhogen van de
+            omzet.
+          </li>
+          <li>
+            <b>Marktcompetitie</b>: Sterke focus op het concurreren in de markt om de beste producten of diensten te
+            leveren tegen de meest winstgevende prijzen.
+          </li>
+        </ul>
+
+        <p>
+          Als eigenaar of manager binnen een traditioneel bedrijf heb je de kans om de strategische richting te bepalen
+          en de groei van het bedrijf te sturen. Deze bedrijfsvorm biedt structuur en duidelijke richtlijnen, wat
+          bijdraagt aan efficiëntie en effectieve besluitvorming.
+        </p>
+      </div>
 
       <ul className={styles.results__list}>
         {questions.map((question, index) => (
