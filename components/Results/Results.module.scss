@@ -45,12 +45,13 @@
   &__images {
     margin: 0 0 2.5rem;
     position: relative;
+    z-index: -2;
 
     &__wrapper {
       width: 70vw;
       height: auto;
       position: relative;
-      aspect-ratio: 8 / 4;
+      aspect-ratio: 9 / 3;
 
       &__image {
         width: 100%;
@@ -74,7 +75,7 @@
       }
 
       &:nth-of-type(2) {
-        margin-top: -25vw;
+        margin-top: -15vw;
         margin-left: 10vw;
       }
     }
@@ -100,6 +101,27 @@
     &__item {
       min-height: 20rem;
       position: relative;
+
+      &__image {
+        left: 50%;
+        width: 20rem;
+        bottom: 80%;
+        height: auto;
+        position: absolute;
+        filter: drop-shadow(0px 0px 1rem rgba(0, 0, 0, 0.075));
+        animation: waves 5s infinite alternate ease-in-out;
+
+        z-index: -1;
+      }
+
+      @keyframes waves {
+        0% {
+          transform: translateX(-50%) rotate(-2deg) scale(1.01);
+        }
+        100% {
+          transform: translateX(-50%) rotate(1deg) scale(0.99);
+        }
+      }
 
       // TODO: This wrapper probably isn't needed for the black background
       &__wrapper {

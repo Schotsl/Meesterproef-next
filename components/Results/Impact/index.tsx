@@ -21,13 +21,13 @@ export default function ResultsImpact({ impact }: ResultsImpactProps) {
       <li className={styles.impact__item}>
         <Image className={styles.impact__item__icon} src={moneyIcon} alt="Money icon" />
 
-        <span className={styles.impact__item__slider} style={{ width: `${workersWidth}%` }}></span>
+        <span className={styles.impact__item__slider} style={{ width: `${financialWidth}%` }}></span>
       </li>
 
       <li className={styles.impact__item}>
         <Image className={styles.impact__item__icon} src={workersIcon} alt="Workers icon" />
 
-        <span className={styles.impact__item__slider} style={{ width: `${financialWidth}%` }}></span>
+        <span className={styles.impact__item__slider} style={{ width: `${workersWidth}%` }}></span>
       </li>
 
       <li className={styles.impact__item}>

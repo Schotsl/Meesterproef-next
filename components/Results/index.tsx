@@ -1,6 +1,6 @@
 import styles from "./Results.module.scss";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import { useQuestion } from "@/context/QuestionContext";
 import { Answer, Impact, Question } from "../../types";
@@ -16,6 +16,10 @@ import imageSocietySecond from "@/public/images/society/2.png";
 import imageWorkersFirst from "@/public/images/workers/1.jpg";
 import imageWorkersSecond from "@/public/images/workers/2.jpg";
 
+import imageIslandsProfit from "@/public/background/islands/money.png";
+import imageIslandsSociety from "@/public/background/islands/society.png";
+import imageIslandsWorkers from "@/public/background/islands/workers.png";
+
 type ResultsProps = {
   answers: Answer[];
   questions: Question[];
@@ -26,6 +30,13 @@ export default function Results({ answers, questions }: ResultsProps) {
   const { employeeWellbeing, financialPresentation, societalImpact } = answersImpact;
 
   const largest = Math.max(employeeWellbeing, financialPresentation, societalImpact);
+
+  const islandImage =
+    largest === employeeWellbeing
+      ? imageIslandsWorkers
+      : largest === financialPresentation
+        ? imageIslandsProfit
+        : imageIslandsSociety;
 
   return (
     <section className={styles.results}>
@@ -64,6 +75,7 @@ export default function Results({ answers, questions }: ResultsProps) {
           <ResultsItem
             key={index}
             index={index}
+            image={islandImage}
             question={question}
             answer={answers.find((answer) => {
               return answer.uuid === question.uuid;
@@ -77,15 +89,18 @@ export default function Results({ answers, questions }: ResultsProps) {
 
 type ResultsItemProps = {
   index: number;
+  image: StaticImageData;
   answer?: Answer;
   question: Question;
 };
 
-function ResultsItem({ index, answer, question }: ResultsItemProps) {
+function ResultsItem({ index, image, answer, question }: ResultsItemProps) {
   const choice = question.options?.find((option) => option.value === answer?.value);
 
   return (
     <li className={styles.results__list__item}>
+      {index == 2 && <Image className={styles.results__list__item__image} src={image} alt="Island" />}
+
       <div className={styles.results__list__item__wrapper}>
         <h4 className={styles.results__list__item__wrapper__question}>Vraag {index + 1}</h4>
         <h3 className={styles.results__list__item__wrapper__title}>{question.title}</h3>
