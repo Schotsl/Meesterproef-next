@@ -21,6 +21,7 @@ type BackgroundProps = {
 // TODO: Cleanup this entire component
 // - Add aspect ratio to clouds so they can loop properly
 // - Make sure the random cloud placement is evenly distributed
+// - Make sure the random item placement is evenly distributed
 // - Remove properties like mirrored, rotatable, transparent and use something like isCloud
 // - Refactor style object to a function or something
 
@@ -105,9 +106,26 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
 
   return (
     <div className={styles.background} style={{ backgroundColor: color }}>
-      <Image alt="Profit cliff" src={imageIslandMoney} className={styles.background__cliff} />
-      <Image alt="Profit cliff" src={imageIslandWorkers} className={styles.background__cliff} />
-      <Image alt="Profit cliff" src={imageIslandSociety} className={styles.background__cliff} />
+      <Image
+        alt="Profit island"
+        src={imageIslandMoney}
+        style={{ bottom: `${-300 + money * 10}px` }}
+        className={styles.background__island}
+      />
+
+      <Image
+        alt="Profit island"
+        src={imageIslandWorkers}
+        style={{ bottom: `${-300 + workers * 10}px` }}
+        className={styles.background__island}
+      />
+
+      <Image
+        alt="Profit island"
+        src={imageIslandSociety}
+        style={{ bottom: `${-300 + society * 10}px` }}
+        className={styles.background__island}
+      />
 
       {doodles.map((doodle, index) => (
         <Image
