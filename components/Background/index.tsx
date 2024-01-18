@@ -34,7 +34,7 @@ export default function Background({
   color,
   cmd = 0,
   money = 0,
-  clouds = 50,
+  clouds = 25,
   society = 0,
   workers = 0,
   spread = false,
