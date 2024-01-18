@@ -124,7 +124,7 @@ export default function Background({ color, money = 0, society = 0, workers = 0,
       <Image
         alt="Profit island"
         src={imageIslandSociety}
-        style={{ bottom: `${completed ? -600 : -300 + society * 10}px` }}
+        style={{ bottom: `${completed ? -600 : -300 + society * 5}px` }}
         className={styles.background__island}
       />
 

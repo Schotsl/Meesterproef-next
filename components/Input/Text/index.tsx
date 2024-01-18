@@ -6,12 +6,13 @@ import { Question } from "../../../types";
 import { useEffect, useState } from "react";
 
 type InputTextProps = {
+  color: string;
   loading: boolean;
   question: Question;
   onAnswer?: (answer: string) => void;
 };
 
-export default function InputText({ loading, question: { question, color }, onAnswer }: InputTextProps) {
+export default function InputText({ color, loading, question: { question }, onAnswer }: InputTextProps) {
   const [answer, setAnswer] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

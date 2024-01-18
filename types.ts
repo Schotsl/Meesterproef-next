@@ -2,7 +2,6 @@ export type Question = {
   uuid: string;
   type: "choice" | "input";
   title: string;
-  color: string;
   options?: Option[];
   question: string;
 };

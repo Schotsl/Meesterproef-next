@@ -2,19 +2,16 @@
   {
     "uuid": "4dfb8b90-a70e-47cc-a9f2-51608f86d04c",
     "type": "input",
-    "color": "#3586ff",
     "question": "Hoe wil je dat je bedrijf heet?"
   },
   {
     "uuid": "0db64dd3-5440-49a4-9252-c0d8ba49fa62",
     "type": "input",
-    "color": "#FFA500",
     "question": "Wat doet je bedrijf?"
   },
   {
     "uuid": "76253f31-0daf-4fa5-908e-6538f7da5c16",
     "type": "input",
-    "color": "#FF69B4",
     "question": "Wat is je bedrijfsmissie?"
   }
 ]

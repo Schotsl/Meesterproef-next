@@ -118,7 +118,6 @@ export async function fetchQuestion(
   return {
     uuid: crypto.randomUUID(),
     type: "choice",
-    color: "#FFA500",
     ...responseParsed,
   };
 }

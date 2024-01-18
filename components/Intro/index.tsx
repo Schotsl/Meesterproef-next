@@ -13,13 +13,18 @@ import { useQuestion } from "@/context/QuestionContext";
 
 const QUESTION_COUNT = parseInt(process.env["NEXT_PUBLIC_QUESTION_COUNT"]!);
 
+const profitColors = ["#003366", "#0055B8", "#007BFF", "#6D9BC3"];
+const workersColors = ["#673AB7", "#9575CD", "#B39DDB", "#D1C4E9"];
+const societyColors = ["#4CAF50", "#80C783", "#8C977D", "#3CB371"];
+
 export default function Intro() {
-  const { answers, questions, setAnswers, setTarget, answersTransformed } = useQuestion();
+  const { answers, questions, setAnswers, setTarget, answersTransformed, answersImpact } = useQuestion();
 
   const [money, setMoney] = useState<number>(0);
   const [society, setSociety] = useState<number>(0);
   const [workers, setWorkers] = useState<number>(0);
 
+  const [color, setColor] = useState("#3586ff");
   const [index, setIndex] = useState(answers.length);
 
   const questionsCombined = [...defaultQuestions, ...questions] as Question[];
@@ -48,31 +53,45 @@ export default function Intro() {
 
     if (!answersObject) return;
 
-    const { employeeWellbeing, financialPresentation, societalImpact } = answersObject.choice.impact;
+    const answersCompleted = answersTransformed.length === QUESTION_COUNT;
+
+    const { employeeWellbeing, financialPresentation, societalImpact } = answersCompleted
+      ? answersImpact
+      : answersObject.choice.impact;
 
     const largest = Math.max(employeeWellbeing, financialPresentation, societalImpact);
+    const index = Math.floor(Math.random() * 4);
 
-    if (largest === societalImpact) setSociety((prev) => prev + 10);
-    if (largest === employeeWellbeing) setWorkers((prev) => prev + 10);
-    if (largest === financialPresentation) setMoney((prev) => prev + 10);
+    if (largest === societalImpact) {
+      setSociety((prev) => prev + 10);
+      setColor(societyColors[index]);
+    }
+
+    if (largest === employeeWellbeing) {
+      setWorkers((prev) => prev + 10);
+      setColor(workersColors[index]);
+    }
+
+    if (largest === financialPresentation) {
+      setMoney((prev) => prev + 10);
+      setColor(profitColors[index]);
+    }
   }, [answersTransformed]);
 
   return (
     <main className={styles.main}>
-      <Background
-        money={money}
-        society={society}
-        workers={workers}
-        color={questionCurrent ? questionCurrent.color : questionPrevious?.color}
-        completed={questionsAnswered}
-      />
+      <Background color={color} money={money} society={society} workers={workers} completed={questionsAnswered} />
 
       <div className={styles.main__content}>
         {questionCurrent && (
-          <Input question={questionCurrent} onAnswer={(answer) => handleAnswer(answer, questionCurrent)} />
+          <Input
+            color={color}
+            question={questionCurrent}
+            onAnswer={(answer) => handleAnswer(answer, questionCurrent)}
+          />
         )}
 
-        {!questionCurrent && !questionsAnswered && <Input loading={true} question={questionPrevious} />}
+        {!questionCurrent && !questionsAnswered && <Input color={color} loading={true} question={questionPrevious} />}
 
         {questionsAnswered && <Results questions={questions} answers={answers} />}
       </div>

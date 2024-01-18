@@ -5,14 +5,16 @@ import Spinner from "@/components/Spinner";
 import { Question } from "../../../types";
 
 type InputChoiceProps = {
+  color: string;
   loading: boolean;
   question: Question;
   onAnswer?: (answer: string) => void;
 };
 
 export default function InputChoice({
+  color,
   loading,
-  question: { question, options, title, color },
+  question: { question, options, title },
   onAnswer,
 }: InputChoiceProps) {
   const handleClick = (value: string) => {
