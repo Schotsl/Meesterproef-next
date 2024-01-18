@@ -5,7 +5,9 @@ import { DoodleImage, DoodleProperties } from "./_types";
 import { useEffect, useState, useCallback } from "react";
 import { moneyDoodles, workersDoodles, societyDoodles } from "./_doodles";
 
-import imageCliffFirst from "@/public/background/cliff.png";
+import imageIslandMoney from "@/public/background/islands/money.png";
+import imageIslandSociety from "@/public/background/islands/society.png";
+import imageIslandWorkers from "@/public/background/islands/workers.png";
 
 import Image from "next/image";
 
@@ -89,7 +91,9 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
       <div className={styles.background__cloud}></div>
       <div className={styles.background__cloud}></div>
 
-      <Image alt="Profit cliff" src={imageCliffFirst} className={styles.background__cliff} />
+      <Image alt="Profit cliff" src={imageIslandMoney} className={styles.background__cliff} />
+      <Image alt="Profit cliff" src={imageIslandWorkers} className={styles.background__cliff} />
+      <Image alt="Profit cliff" src={imageIslandSociety} className={styles.background__cliff} />
 
       {doodles.map((doodle, index) => (
         <Image
