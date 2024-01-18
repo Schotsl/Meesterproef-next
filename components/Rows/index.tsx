@@ -39,7 +39,7 @@ export default function Rows() {
             <p className={styles.main__rows__content__text}>
               Voor het vak Typografie moest ik een website maken om meer te vertellen over een bepaald lettertype; ik
               koos voor Futura. Deze website is een van mijn favorieten geworden. Ik ben vooral trots op hoe ik
-              'geëxperimenteerd' heb met het lettertype, en de website heeft een gaaf sci-fi gevoel!{" "}
+              &apos;geëxperimenteerd&apos; heb met het lettertype, en de website heeft een gaaf sci-fi gevoel!{" "}
             </p>
           </div>
 
@@ -76,8 +76,8 @@ export default function Rows() {
             <p className={styles.main__rows__content__text}>
               Voor Interface & Interactie moesten we drie animaties maken. Ik heb mijn animaties gemaakt in Procreate
               Dreams. Het resultaat is niet super indrukwekkend, vooral als ik bedenk hoeveel tijd ik eraan heb besteed.
-              Ik ben er niet per se 'ontevreden' mee, maar zou het niet snel aan anderen laten zien... Toch was het
-              leerzaam om meer over animatie te leren.
+              Ik ben er niet per se &apos;ontevreden&apos; mee, maar zou het niet snel aan anderen laten zien... Toch
+              was het leerzaam om meer over animatie te leren.
             </p>
           </div>
 
@@ -99,8 +99,8 @@ export default function Rows() {
             <p className={styles.main__rows__content__text}>
               Tot slot heb ik voor Beeldtaal meerdere posters gemaakt. Een van de eindresultaten staat hier links,
               waarbij ik probeer mensen te overtuigen om minder te vervuilen. Ik ben best tevreden met mijn posters,
-              maar mijn hart ligt meer bij websites en webdesign – dat zie je waarschijnlijk ook terug in het resultaat.
-              Maar het was zeker een interessant vak!"
+              maar mijn hart ligt meer bij websites en webdesign - dat zie je waarschijnlijk ook terug in het resultaat.
+              Maar het was zeker een interessant vak!
             </p>
           </div>
         </section>
