@@ -1,60 +1,112 @@
-.results {
-  &__title {
-    // color: blue;
-  }
+@import "@/styles/variables.scss";
+@import "@/styles/mixins.scss";
 
+.results {
   &__list {
-    width: 80vw;
-    position: absolute;
     top: 50%;
     left: 50%;
+    width: 80vw;
+    position: absolute;
     transform: translate(-50%, -50%);
 
     gap: 1rem;
     margin: 0;
-    display: grid;
     padding: 0;
+    display: grid;
 
     list-style: none;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+
+    @include respond-to-lg {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to-xl {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
     &__item {
-      border: 2px solid #000;
-      height: 16rem;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 1rem;
+      min-height: 20rem;
+      position: relative;
 
-      &__impact {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
+      &__wrapper {
+        height: 100%;
+        border: 2px solid #000;
+        padding: 1rem 1.5rem;
+        background: #fff;
 
-        &__item {
-          width: 100%;
-          height: 1.5rem;
-          position: relative;
+        box-sizing: border-box;
+        border-radius: 1rem;
+
+        &__title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        &__impact {
+          gap: 0.25rem;
+          margin: 0;
+          padding: 0;
           display: flex;
-          align-items: center;
 
-          &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 2px;
-            height: 100%;
-            background: #000;
-          }
+          list-style: none;
+          flex-direction: column;
 
-          &__slider {
-            display: block;
-            background: red;
-            height: 75%;
+          &__item {
+            gap: 0.5rem;
+            width: 100%;
+            height: 2rem;
+            display: flex;
+
+            &__icon {
+              width: 1.75rem;
+              height: auto;
+              margin-top: 0.25rem;
+              object-fit: contain;
+            }
+
+            &__slider {
+              height: 1.25rem;
+              border: 2px solid #000;
+              display: block;
+              position: relative;
+              background: repeating-linear-gradient(45deg, #feb12c, #feb12c 1rem, #e5e5f7 1rem, #e5e5f7 1.5rem);
+              margin-top: 0.375rem;
+
+              &::before {
+                left: -2px;
+                width: 2px;
+                height: 2rem;
+                content: "";
+                position: absolute;
+                background: #000;
+                margin-top: -0.375rem;
+              }
+            }
+
+            &:nth-of-type(2) > span {
+              background: repeating-linear-gradient(45deg, #a2681b, #a2681b 1rem, #e5e5f7 1rem, #e5e5f7 1.5rem);
+            }
+
+            &:nth-of-type(3) > span {
+              background: repeating-linear-gradient(45deg, #0269f8, #0269f8 1rem, #e5e5f7 1rem, #e5e5f7 1.5rem);
+            }
           }
         }
+      }
+
+      &::before {
+        top: 0.5rem;
+        left: 0.5rem;
+        width: 100%;
+        height: 100%;
+        content: "";
+        position: absolute;
+        background: #000;
+
+        z-index: -1;
+        border-radius: 1rem;
       }
     }
   }

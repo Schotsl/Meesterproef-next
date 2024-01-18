@@ -109,14 +109,14 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
       <Image
         alt="Profit island"
         src={imageIslandMoney}
-        style={{ bottom: `${-300 + money * 10}px` }}
+        style={{ bottom: `${-300 + money * 5}px` }}
         className={styles.background__island}
       />
 
       <Image
         alt="Profit island"
         src={imageIslandWorkers}
-        style={{ bottom: `${-300 + workers * 10}px` }}
+        style={{ bottom: `${-300 + workers * 5}px` }}
         className={styles.background__island}
       />
 
