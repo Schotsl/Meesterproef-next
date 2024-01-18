@@ -64,6 +64,7 @@ export default function Intro() {
         society={society}
         workers={workers}
         color={questionCurrent ? questionCurrent.color : questionPrevious?.color}
+        completed={questionsAnswered}
       />
 
       <div className={styles.main__content}>

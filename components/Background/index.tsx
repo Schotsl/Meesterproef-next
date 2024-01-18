@@ -16,6 +16,7 @@ type BackgroundProps = {
   money?: number;
   society?: number;
   workers?: number;
+  completed: boolean;
 };
 
 // TODO: Cleanup this entire component
@@ -25,7 +26,7 @@ type BackgroundProps = {
 // - Remove properties like mirrored, rotatable, transparent and use something like isCloud
 // - Refactor style object to a function or something
 
-export default function Background({ color, money = 0, society = 0, workers = 0 }: BackgroundProps) {
+export default function Background({ color, money = 0, society = 0, workers = 0, completed }: BackgroundProps) {
   const [doodles, setDoodles] = useState<DoodleProperties[]>([]);
   const [clouds, setClouds] = useState(50);
 
@@ -109,21 +110,21 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
       <Image
         alt="Profit island"
         src={imageIslandMoney}
-        style={{ bottom: `${-300 + money * 5}px` }}
+        style={{ bottom: `${completed ? -600 : -300 + money * 5}px` }}
         className={styles.background__island}
       />
 
       <Image
         alt="Profit island"
         src={imageIslandWorkers}
-        style={{ bottom: `${-300 + workers * 5}px` }}
+        style={{ bottom: `${completed ? -600 : -300 + workers * 5}px` }}
         className={styles.background__island}
       />
 
       <Image
         alt="Profit island"
         src={imageIslandSociety}
-        style={{ bottom: `${-300 + society * 10}px` }}
+        style={{ bottom: `${completed ? -600 : -300 + society * 10}px` }}
         className={styles.background__island}
       />
 
