@@ -147,7 +147,7 @@ export const QuestionProvider = ({
   }, [answers]);
 
   const answersImpact = useMemo(() => {
-    return answersTransformed.reduce(
+    const sumImpact = answersTransformed.reduce(
       (previousValue, currentValue) => {
         return {
           societalImpact: previousValue.societalImpact + currentValue.choice.impact.societalImpact,
@@ -161,6 +161,23 @@ export const QuestionProvider = ({
         financialPresentation: 0,
       },
     );
+
+    // I used ChatGPT to write this function so I don't fully understand it myself
+    const totalMagnitude = Math.sqrt(
+      Math.pow(sumImpact.societalImpact, 2) +
+        Math.pow(sumImpact.employeeWellbeing, 2) +
+        Math.pow(sumImpact.financialPresentation, 2),
+    );
+
+    const normalizeImpact = (value: number) => {
+      return totalMagnitude === 0 ? 0 : value / totalMagnitude;
+    };
+
+    return {
+      societalImpact: normalizeImpact(sumImpact.societalImpact),
+      employeeWellbeing: normalizeImpact(sumImpact.employeeWellbeing),
+      financialPresentation: normalizeImpact(sumImpact.financialPresentation),
+    };
   }, [answersTransformed]);
 
   return (
