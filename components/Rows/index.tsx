@@ -83,7 +83,7 @@ export default function Rows() {
 
           <div className={styles.main__rows__row__wrapper}>
             <video className={styles.main__rows__row__wrapper__video} autoPlay muted loop>
-              <source src="/vid/Interface & Interactie.mov" type="video/mp4" />
+              <source src="/vid/Interface & Interactie.mp4" type="video/mp4" />
             </video>
           </div>
         </section>
