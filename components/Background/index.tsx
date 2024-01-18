@@ -3,7 +3,7 @@ import styles from "./Background.module.scss";
 import { numberBetween, floatBetween } from "@/helper";
 import { DoodleImage, DoodleProperties } from "./_types";
 import { useEffect, useState, useCallback } from "react";
-import { moneyDoodles, workersDoodles, societyDoodles } from "./_doodles";
+import { moneyDoodles, workersDoodles, societyDoodles, cloudDoodles } from "./_doodles";
 
 import imageIslandMoney from "@/public/background/islands/money.png";
 import imageIslandSociety from "@/public/background/islands/society.png";
@@ -18,9 +18,17 @@ type BackgroundProps = {
   workers?: number;
 };
 
+// TODO: Cleanup this entire component
+// - Add aspect ratio to clouds so they can loop properly
+// - Make sure the random cloud placement is evenly distributed
+// - Remove properties like mirrored, rotatable, transparent and use something like isCloud
+// - Refactor style object to a function or something
+
 export default function Background({ color, money = 0, society = 0, workers = 0 }: BackgroundProps) {
   const [doodles, setDoodles] = useState<DoodleProperties[]>([]);
+  const [clouds, setClouds] = useState(50);
 
+  const [cloudCount, setCloudCount] = useState<number>(0);
   const [moneyCount, setMoneyCount] = useState<number>(0);
   const [societyCount, setSocietyCount] = useState<number>(0);
   const [workersCount, setWorkersCount] = useState<number>(0);
@@ -29,13 +37,18 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
     setDoodles((doodles) =>
       doodles.map((doodle) => {
         // Loop the doodle back to the top if it's out of the screen
-        const positionNext = doodle.positionY + doodle.speed;
-        const positionOverflow = positionNext > window.innerHeight;
-        const positionY = positionOverflow ? -doodle.doodle.height : positionNext;
+        const positionYNext = doodle.positionY + doodle.speedY;
+        const positionYOverflow = positionYNext > window.innerHeight;
+        const positionY = positionYOverflow ? -doodle.doodle.height : positionYNext;
+
+        const positionXNext = doodle.positionX + doodle.speedX;
+        const positionXOverflow = positionXNext > window.innerWidth;
+        const positionX = positionXOverflow ? -500 : positionXNext;
 
         return {
           ...doodle,
           positionY,
+          positionX,
         };
       }),
     );
@@ -45,33 +58,39 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
     const doodlesAdded: DoodleProperties[] = [];
 
     // Generate more doodles if the count increases
-    const addDoodles = (currentCount: number, targetCount: number, doodleArray: DoodleImage[]) => {
+    const addDoodles = (currentCount: number, targetCount: number, doodleArray: DoodleImage[], cloud: boolean) => {
       for (let i = currentCount; i < targetCount; i++) {
         const randomIndex = numberBetween(0, doodleArray.length - 1);
         const randomDoodle = doodleArray[randomIndex];
 
         // Base the speed on the index of the doodle
-        const index = numberBetween(0, 4);
-        const speed = index + 4 + floatBetween(-2, 2);
+        const index = cloud ? numberBetween(0, 5) : numberBetween(0, 4);
+        const speedY = index + 4 + floatBetween(-2, 2);
+        const speedX = index / 2 + 1 + floatBetween(-1, 1);
 
         doodlesAdded.push({
           tilt: numberBetween(-30, 30),
           index,
-          speed,
           doodle: randomDoodle,
+          speedX: cloud ? speedX : 0,
+          speedY: !cloud ? speedY : 0,
+          mirrored: !!numberBetween(0, 1),
+          rotatable: !cloud,
+          transparent: cloud,
 
           // Randomize the position of the doodle on the screen
           positionX: Math.random() * window.innerWidth,
-          positionY: -randomDoodle.height,
+          positionY: cloud ? window.innerHeight * floatBetween(0.95, 1.05) - randomDoodle.height : -randomDoodle.height,
         });
       }
 
       return targetCount;
     };
 
-    setMoneyCount(addDoodles(moneyCount, money, moneyDoodles));
-    setWorkersCount(addDoodles(workersCount, workers, workersDoodles));
-    setSocietyCount(addDoodles(societyCount, society, societyDoodles));
+    setCloudCount(addDoodles(cloudCount, clouds, cloudDoodles, true));
+    setMoneyCount(addDoodles(moneyCount, money, moneyDoodles, false));
+    setWorkersCount(addDoodles(workersCount, workers, workersDoodles, false));
+    setSocietyCount(addDoodles(societyCount, society, societyDoodles, false));
 
     setDoodles((doodles) => [...doodles, ...doodlesAdded]);
   }, [money, society, workers]);
@@ -86,11 +105,6 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
 
   return (
     <div className={styles.background} style={{ backgroundColor: color }}>
-      <div className={styles.background__cloud}></div>
-      <div className={styles.background__cloud}></div>
-      <div className={styles.background__cloud}></div>
-      <div className={styles.background__cloud}></div>
-
       <Image alt="Profit cliff" src={imageIslandMoney} className={styles.background__cliff} />
       <Image alt="Profit cliff" src={imageIslandWorkers} className={styles.background__cliff} />
       <Image alt="Profit cliff" src={imageIslandSociety} className={styles.background__cliff} />
@@ -104,10 +118,11 @@ export default function Background({ color, money = 0, society = 0, workers = 0 
           style={{
             zIndex: doodle.index,
             height: `${doodle.doodle.height}px`,
-            filter: `brightness(${0.8 + doodle.index * 0.05})`,
-            transform: `translate(${doodle.positionX}px, ${doodle.positionY}px) rotate(${doodle.tilt}deg) scale(${
-              doodle.index * 0.1 + 0.5
-            })`,
+            filter: `brightness(${doodle.transparent ? 1 : 0.8 + doodle.index * 0.05})`,
+            opacity: doodle.transparent ? 0.4 + doodle.index * 0.1 : 1,
+            transform: `translate(${doodle.positionX}px, ${doodle.positionY}px) rotate(${
+              doodle.rotatable ? doodle.tilt : 0
+            }deg) scale(${doodle.index * 0.1 + 0.5}) ${doodle.mirrored ? "scaleX(-1)" : ""}`,
           }}
         />
       ))}

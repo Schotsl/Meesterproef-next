@@ -7,9 +7,13 @@ export type DoodleImage = {
 
 export type DoodleProperties = {
   tilt: number;
-  speed: number;
   index: number;
   doodle: DoodleImage;
+  speedX: number;
+  speedY: number;
+  mirrored: boolean;
+  transparent: boolean;
   positionX: number;
   positionY: number;
+  rotatable: boolean;
 };

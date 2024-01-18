@@ -1,4 +1,3 @@
-import { StaticImageData } from "next/image";
 import { DoodleImage } from "./_types";
 
 import imageProfitFirst from "@/public/background/profit/1.png";
@@ -15,6 +14,14 @@ import imageWorkersFirst from "@/public/background/workers/1.png";
 import imageWorkersSecond from "@/public/background/workers/2.png";
 import imageWorkersThird from "@/public/background/workers/3.png";
 import imageWorkersFourth from "@/public/background/workers/4.png";
+
+import imageCloudFirst from "@/public/background/clouds/1.png";
+import imageCloudSecond from "@/public/background/clouds/2.png";
+import imageCloudThird from "@/public/background/clouds/3.png";
+import imageCloudFourth from "@/public/background/clouds/4.png";
+import imageCloudFifth from "@/public/background/clouds/5.png";
+import imageCloudSixth from "@/public/background/clouds/6.png";
+import imageCloudSeventh from "@/public/background/clouds/7.png";
 
 export const moneyDoodles: DoodleImage[] = [
   {
@@ -70,5 +77,36 @@ export const workersDoodles: DoodleImage[] = [
   {
     image: imageWorkersFourth,
     height: 64,
+  },
+];
+
+export const cloudDoodles: DoodleImage[] = [
+  {
+    image: imageCloudFirst,
+    height: 128,
+  },
+  {
+    image: imageCloudSecond,
+    height: 128,
+  },
+  {
+    image: imageCloudThird,
+    height: 160,
+  },
+  {
+    image: imageCloudFourth,
+    height: 128,
+  },
+  {
+    image: imageCloudFifth,
+    height: 64,
+  },
+  {
+    image: imageCloudSixth,
+    height: 160,
+  },
+  {
+    image: imageCloudSeventh,
+    height: 160,
   },
 ];
