@@ -58,10 +58,10 @@ export default function Rows() {
           </div>
 
           <div className={styles.main__rows__content}>
-            <h1 className={styles.main__rows__content__title}>Interface & Interactie</h1>
+            <h1 className={styles.main__rows__content__title}>Interface & Beweging</h1>
 
             <p className={styles.main__rows__content__text}>
-              In Interface & Interactie heb ik een website gemaakt waarbij je in de huid kruipt van een schurk uit
+              In Interface & Beweging heb ik een website gemaakt waarbij je in de huid kruipt van een schurk uit
               Scooby-Doo die de Scooby-gang bespioneert. Ik ben tevreden over hoe het is geworden, maar achteraf had ik
               het liever in Next.js geschreven om meer nieuwe vaardigheden te leren. Toch ben ik blij met het
               eindresultaat.
@@ -71,10 +71,10 @@ export default function Rows() {
 
         <section className={styles.main__rows__row}>
           <div className={styles.main__rows__content}>
-            <h1 className={styles.main__rows__content__title}>Interface & Beweging</h1>
+            <h1 className={styles.main__rows__content__title}>Interface & Interactie</h1>
 
             <p className={styles.main__rows__content__text}>
-              Voor Interface & Beweging moesten we drie animaties maken. Ik heb mijn animaties gemaakt in Procreate
+              Voor Interface & Interactie moesten we drie animaties maken. Ik heb mijn animaties gemaakt in Procreate
               Dreams. Het resultaat is niet super indrukwekkend, vooral als ik bedenk hoeveel tijd ik eraan heb besteed.
               Ik ben er niet per se &apos;ontevreden&apos; mee, maar zou het niet snel aan anderen laten zien... Toch
               was het leerzaam om meer over animatie te leren.
